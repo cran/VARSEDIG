@@ -1,0 +1,26 @@
+
+#functions
+exportPattern(VARSEDIG)
+
+importFrom(IDPmisc, Arrows)
+
+importFrom(adehabitat, biv.test)
+
+importFrom(kulife, auc)
+
+importFrom(MASS, stepAIC)
+
+importFrom(car, scatterplot)
+
+importFrom(ade4, as.randtest)
+
+importFrom(stats, na.exclude, density, glm, predict, cor,
+as.formula, binomial, lm)
+
+importFrom(utils, write.csv, write.csv2, read.csv, read.csv2)
+
+importFrom(grDevices, rainbow, dev.new, dev.off)
+
+importFrom(graphics, par, mtext, plot, points, polygon, legend, axis, text)
+
+
