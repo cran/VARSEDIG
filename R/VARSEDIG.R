@@ -80,8 +80,8 @@ else{
 
 
 
-if(requireNamespace("adehabitat", quietly = TRUE)){
-adehabitat::biv.test
+if(requireNamespace("adehabitatHS", quietly = TRUE)){
+adehabitatHS::biv.test
 }
 else{
 ## do something else not involving adehabitat
@@ -395,14 +395,9 @@ polygon(x=den$x, y=den$y, col=COLORd[h],border=COLORB[h], lwd=lwd,lty=lty[h])
 
 
 
-
 if(!is.null(LEGENDd)){
-if(LEGENDd==FALSE){
-}
-else{
 legendexe<-paste("legend(",toString(x=LEGENDd), ")")
-eval(parse(text=legendexe))
-}
+ifelse(LEGENDd==FALSE, paso<-"NO", eval(parse(text=legendexe)))
 }
 else{
 legendexe<-paste("legend(","x='topleft',","legend=dati,","bty='n',", "col=COLORB,",
@@ -1368,12 +1363,8 @@ dati<-c(group2,group1)
 col<-c(Pcol, colbiv)
 
 if(!is.null(LEGENDr)){
-if(LEGENDr==FALSE){
-}
-else{
 legendexe<-paste("legend(",toString(x=LEGENDr), ")")
-eval(parse(text=legendexe))
-}
+ifelse(LEGENDr==FALSE, paso<-"NO", eval(parse(text=legendexe)))
 }
 else{
 legendexe<-paste("legend(","x='topright',","legend=dati,","bty='n',", "col=col,","pch=c(16,16)",  ")")
@@ -1441,12 +1432,8 @@ dati<-c(group1,group2)
 col<-c(Pcol, colbiv)
 
 if(!is.null(LEGENDr)){
-if(LEGENDr==FALSE){
-}
-else{
 legendexe<-paste("legend(",toString(x=LEGENDr), ")")
-eval(parse(text=legendexe))
-}
+ifelse(LEGENDr==FALSE, paso<-"NO", eval(parse(text=legendexe)))
 }
 else{
 legendexe<-paste("legend(","x='topright',","legend=dati,","bty='n',", "col=col,","pch=c(16,16)",  ")")
@@ -1527,7 +1514,6 @@ print(dist)
 sink()
 }
 }
-
 
 
 

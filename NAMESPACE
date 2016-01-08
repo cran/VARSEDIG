@@ -4,7 +4,7 @@ exportPattern(VARSEDIG)
 
 importFrom(IDPmisc, Arrows)
 
-importFrom(adehabitat, biv.test)
+importFrom(adehabitatHS, biv.test)
 
 importFrom(kulife, auc)
 

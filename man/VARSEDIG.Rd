@@ -31,7 +31,7 @@ na="NA", dec=",", row.names=FALSE)
   \item{cor}{If it is TRUE the variables are ordered according to the correlation between them when estimating the polar coordinates. Therefore, the next variable to another variable is the one that has a greater positive correlation.}
   \item{DPLOT}{It allows to specify the characteristics of the function \link[graphics]{plot.default} of the density plot.}
   \item{SCATTERPLOT}{It accesses the function \link[car]{scatterplot} of the car package, with the graph \emph{biplot} that performs the X an Y polar coordinates.}
-  \item{BIVTEST12}{It accesses the function \link[adehabitat]{biv.test} of the package adehabitat, which performs the bivariate plot that displays the results of a bivariate randomisation test. From all values of group 2, it shows the value with higher probability to belong to group 1.}
+  \item{BIVTEST12}{It accesses the function \link[adehabitatHS]{biv.test} of the package adehabitatHS, which performs the bivariate plot that displays the results of a bivariate randomisation test. From all values of group 2, it shows the value with higher probability to belong to group 1.}
   \item{BIVTEST21}{As in the argument \emph{BIVTEST12}, but from all values of group 1, it shows the value with higher probability to belong to group 2.}
   \item{Pcol}{Color or name for the observation of group 2 in the BIVTEST12 plot and for the value of group 1 in the BIVTEST21 plot.}
   \item{colbiv}{Color or name of all values of group 1 in the BIVTEST12 plot and all values of group 2 in the BIVTEST21 plot.}
@@ -129,7 +129,7 @@ If p-value is close or lower than 0.05 for X or Y polar coordinates, but in both
 
 \strong{FUNCTIONS}
 
-The density plot is performed with the function \link[graphics]{plot.default} of base graphics package. The density curve is estimated with the function \link[stats]{density} of base stats package. The area under the curve is estimated with the function \link[kulife]{auc} of the package kulife (Ekstrom et al., 2015). The random test was performed with the function \link[ade4]{as.randtest} of the package ade4 (Chessel et al., 2004; Dray et al., 2007; 2015). The bivariate plot that displays the results of a bivariate randomisation test, for which the p-values are computed with the function \link[ade4]{as.randtest} (one-sided tests), was performed with the function \link[adehabitat]{biv.test} of the package adehabitat (Calenge, 2006; 2015). The arrows are depicted with the function \link[IDPmisc]{Arrows} of the package IDPmisc (Locher & Ruckstuhl, 2014). The scatterplot is performed with the function \link[car]{scatterplot} of the car package (Fox & Weisberg, 2011; Fox et al., 2014).
+The density plot is performed with the function \link[graphics]{plot.default} of base graphics package. The density curve is estimated with the function \link[stats]{density} of base stats package. The area under the curve is estimated with the function \link[kulife]{auc} of the package kulife (Ekstrom et al., 2015). The random test was performed with the function \link[ade4]{as.randtest} of the package ade4 (Chessel et al., 2004; Dray et al., 2007; 2015). The bivariate plot that displays the results of a bivariate randomisation test, for which the p-values are computed with the function \link[ade4]{as.randtest} (one-sided tests), was performed with the function \link[adehabitatHS]{biv.test} of the package adehabitatHS (Calenge, 2006; 2015). The arrows are depicted with the function \link[IDPmisc]{Arrows} of the package IDPmisc (Locher & Ruckstuhl, 2014). The scatterplot is performed with the function \link[car]{scatterplot} of the car package (Fox & Weisberg, 2011; Fox et al., 2014).
 
 \strong{EXAMPLES}
 
@@ -154,7 +154,7 @@ It is not necessary a p-value lower than 0.05 for both X and Y, but it is just n
 \references{
 Calenge, C. (2006) The package adehabitat for the R software: a tool for the analysis of space and habitat use by animals. \emph{Ecological Modelling}, 197, 516-519.
 
-Calenge, C. (2015) Analysis of Habitat Selection by Animals. R package version 1.8-18. Available at: \url{http://CRAN.R-project.org/package=adehabitat}.
+Calenge, C. (2016) Analysis of Habitat Selection by Animals. R package version 0.3.12. Available at: \url{http://CRAN.R-project.org/package=adehabitatHS}.
 
 Chessel, D., Dufour, A.B. and Thioulouse, J. (2004) The ade4 package-I- One-table methods. \emph{R News}, 4, 5-10.
 
