@@ -71,44 +71,19 @@ if (missing(file)) file="Output.txt" else file=file
 #Paquetes necesarios
 
 
-if(requireNamespace("kulife", quietly = TRUE)){
-kulife::auc
-}
-else{
-## do something else not involving kulife
-}
+if(requireNamespace("kulife", quietly = TRUE)){kulife::auc}
 
 
-
-if(requireNamespace("adehabitatHS", quietly = TRUE)){
-adehabitatHS::biv.test
-}
-else{
-## do something else not involving adehabitat
-}
+if(requireNamespace("adehabitatHS", quietly = TRUE)){adehabitatHS::biv.test}
 
 
-if(requireNamespace("MASS", quietly = TRUE)){
-MASS::stepAIC
-}
-else{
-## do something else not involving MASS
-}
+if(requireNamespace("MASS", quietly = TRUE)){MASS::stepAIC}
 
 
-if(requireNamespace("car", quietly = TRUE)){
-car::scatterplot
-}
-else{
-## do something else not involving car
-}
+if(requireNamespace("car", quietly = TRUE)){car::scatterplot}
 
-if(requireNamespace("ade4", quietly = TRUE)){
-ade4::as.randtest
-}
-else{
-## do something else not involving ade4
-}
+
+if(requireNamespace("ade4", quietly = TRUE)){ade4::as.randtest}
 
 
 
