@@ -135,7 +135,7 @@ The density plot is performed with the function \link[graphics]{plot.default} of
 
 For the example, morphometric data of three families of freshwater fishes, as the distance from the origin of the dorsal fin to the origin of the anal fin (M13), the length of the dorsal fin base (M12), body height (M11), etc., are used. For details see Guisande et al. (2010).
 
-Figure shows the plots obtained with VARSEDIG, in an example comparing the species \emph{Moenkhausia dichroura} and \emph{Moenkhausia oligolepis}.
+Figure shows the plots obtained with VARSEDIG (Guisande et al., 2016), in an example comparing the species \emph{Moenkhausia dichroura} and \emph{Moenkhausia oligolepis}.
 
 The variables that better discriminate between both species are the M26 (interorbital width) and M11 (distance from the dorsal-fin origin to the dorsal limit of the pelvic-fin base). Between these two variables, a density plot is depicted for the quantitative variable with lower overlap between both groups and, thus, the highest discrimination capacity: in this example M26 (Figure 1A).
 
@@ -154,7 +154,7 @@ It is not necessary a p-value lower than 0.05 for both X and Y, but it is just n
 \references{
 Calenge, C. (2006) The package adehabitat for the R software: a tool for the analysis of space and habitat use by animals. \emph{Ecological Modelling}, 197, 516-519.
 
-Calenge, C. (2016) Analysis of Habitat Selection by Animals. R package version 0.3.12. Available at: \url{http://CRAN.R-project.org/package=adehabitatHS}.
+Calenge, C. (2016) Analysis of Habitat Selection by Animals. R package version 0.3.12. Available at: \url{https://CRAN.R-project.org/package=adehabitatHS}.
 
 Chessel, D., Dufour, A.B. and Thioulouse, J. (2004) The ade4 package-I- One-table methods. \emph{R News}, 4, 5-10.
 
@@ -163,13 +163,13 @@ Dray, S. & Dufour, A.B. (2007) The ade4 package: implementing the duality diagra
 Dray, S. & Dufour, A.B. and Chessel, D. (2007) The ade4 package-II: Two-table and K-table methods. \emph{R News}, 7(2), 47-52.
 
 Dray, S., Dufour, A-B. & Thioulouse, J. (2015) Analysis of Ecological Data : Exploratory and Euclidean Methods
-in Environmental Sciences. R package version 1.7-2. Available at: \url{http://CRAN.R-project.org/package=ade4}.
+in Environmental Sciences. R package version 1.7-2. Available at: \url{https://CRAN.R-project.org/package=ade4}.
 
-Ekstrom, C., Skovgaard, Ib M. & Martinussen, T.(2015) Datasets and functions from the (now non-existing). R package version 0.1-14. Available at: \url{http://CRAN.R-project.org/package=kulife}.
+Ekstrom, C., Skovgaard, Ib M. & Martinussen, T.(2015) Datasets and functions from the (now non-existing). R package version 0.1-14. Available at: \url{https://CRAN.R-project.org/package=kulife}.
 
 Fox, J. & Weisberg, S. (2011) An R Companion to Applied Regression, Second Edition. Thousand Oaks CA: Sage. \url{ http://socserv.socsci.mcmaster.ca/jfox/Books/Companion}.
 
-Fox, J., Weisberg, S., Adler, D., Bates, D., Baud-Bovy, G., Ellison, S., Firth, D., Friendly, M., Gorjanc, G., Graves, S., Heiberger, R., Laboissiere, R., Monette, G., Murdoch, D., Nilsson, H., Ogle, D., Ripley, B., Venables, W. & Zeileis, A. (2014) Companion to Applied Regression. R package version 2.0-20. Available at: \url{http://CRAN.R-project.org/package=car}.
+Fox, J., Weisberg, S., Adler, D., Bates, D., Baud-Bovy, G., Ellison, S., Firth, D., Friendly, M., Gorjanc, G., Graves, S., Heiberger, R., Laboissiere, R., Monette, G., Murdoch, D., Nilsson, H., Ogle, D., Ripley, B., Venables, W. & Zeileis, A. (2014) Companion to Applied Regression. R package version 2.0-20. Available at: \url{https://CRAN.R-project.org/package=car}.
 
 Guisande, C., Manjarrés-Hernández, A., Pelayo-Villamil, P., Granado-Lorencio, C., Riveiro, I., Acuña, A., Prieto-Piraquive, E., Janeiro, E., Matías, J.M., Patti, C., Patti, B., Mazzola, S., Jiménez, S., Duque, V. & Salmerón, F. (2010) IPez: An expert system for the taxonomic identification of fishes based on machine learning techniques. \emph{Fisheries Research}, 102, 240-247.
 
@@ -177,7 +177,9 @@ Guisande, C., Vaamonde, A. & Barreiro, A. (2011) \emph{Tratamiento de datos con 
 
 Guisande, C. & Vaamonde, A. (2012) \emph{Gráficos estadísticos y mapas con R}. Ediciones Díaz de Santos, Madrid, 367 pp.
 
-Locher, R. & Ruckstuhl, A. (2014) Utilities of Institute of Data Analyses and Process Design. R package version 1.1.17. Available at: \url{http://CRAN.R-project.org/package=IDPmisc}.
+Guisande, C., Vari, R.P., Heine, J., García-Roselló, E., González-Dacosta, J., Pérez-Schofield, B.J., González-Vilas, L. & Pelayo-Villamil, P. (2016) VARSEDIG: an algorithm for morphometric characters selection and statistical validation in morphological taxonomy. \emph{Zootaxa}, 4162 (3), 571-580
+
+Locher, R. & Ruckstuhl, A. (2014) Utilities of Institute of Data Analyses and Process Design. R package version 1.1.17. Available at: \url{https://CRAN.R-project.org/package=IDPmisc}.
 
 Tabachnick, B.G. & Fidell, L.S. (1996) \emph{Using Multivariate Statistics}. NY, HarperCollins.
 }

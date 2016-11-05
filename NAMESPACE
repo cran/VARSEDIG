@@ -2,18 +2,6 @@
 #functions
 exportPattern(VARSEDIG)
 
-importFrom(IDPmisc, Arrows)
-
-importFrom(adehabitatHS, biv.test)
-
-importFrom(kulife, auc)
-
-importFrom(MASS, stepAIC)
-
-importFrom(car, scatterplot)
-
-importFrom(ade4, as.randtest)
-
 importFrom(stats, na.exclude, density, glm, predict, cor,
 as.formula, binomial, lm)
 

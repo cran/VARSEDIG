@@ -1,0 +1,18 @@
+citHeader("To cite VARSEDING in publications please use:")
+
+citEntry(entry = "Article",
+  title        = "VARSEDIG: an algorithm for morphometric characters selection and statistical validation in morphological taxonomy",
+  author       = "Guisande, C and Vari, RP and Heine, J and García-Roselló, E and González-Dacosta, J and Pérez-Schofield, BJ and González-Vilas, L and Pelayo-Villamil, P",
+  journal      = "Zootaxa",
+  year         = "2016",
+  volume       = "4162",
+  number       = "3",
+  pages        = "571--580",
+  url          = "https://www.ncbi.nlm.nih.gov/pubmed/27615992",
+
+  textVersion  =
+  paste("Guisande C., Vari R.P., Heine J., García-Roselló E., González-Dacosta J., Pérez-Schofield B.J., González-Vilas L. & Pelayo-Villamil P. (2016).",
+        "VARSEDIG: an algorithm for morphometric characters selection and statistical validation in morphological taxonomy.",
+        "Zootaxa, 4162(3). 571-580.",
+        "URL https://www.ncbi.nlm.nih.gov/pubmed/27615992")
+)

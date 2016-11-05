@@ -10,83 +10,6 @@ arrows=TRUE, larrow=1, ARROWS=NULL, TEXTa=NULL, model="Model.rda",
 file1="Overlap.csv",  file2="Coefficients.csv", file3="Predictions.csv", 
 file4="Polar coordinates", file="Output.txt", na="NA", dec=",", row.names=FALSE){
 
-
-###############################################
-#Seccion que realiza el procedimiento
-###############################################
-
-
-if (missing(kernel)) kernel="gaussian" else kernel=kernel
-if (missing(method)) method="overlap" else method=method
-if (missing(VARSEDIG)) VARSEDIG=TRUE else VARSEDIG=VARSEDIG
-if (missing(minimum)) minimum=TRUE else minimum=minimum
-if (missing(DPLOT)) DPLOT=NULL else DPLOT=DPLOT
-if (missing(SCATTERPLOT)) SCATTERPLOT=NULL else SCATTERPLOT=SCATTERPLOT
-if (missing(BIVTEST12)) BIVTEST12=NULL else BIVTEST12=BIVTEST12
-if (missing(BIVTEST21)) BIVTEST21=NULL else BIVTEST21=BIVTEST21
-if (missing(Pcol)) Pcol="red" else Pcol=Pcol
-if (missing(colbiv)) colbiv="lightblue" else colbiv=colbiv
-if (missing(br)) br=20 else br=br
-if (missing(sub)) sub="" else sub=sub
-if (missing(cor)) cor=TRUE else cor=cor
-if (missing(arrows)) arrows=TRUE else arrows=arrows
-if (missing(larrow)) larrow=1 else larrow=larrow
-if (missing(ARROWS)) ARROWS=NULL else ARROWS=ARROWS
-if (missing(lty)) lty=1 else lty=lty
-if (missing(lwd)) lwd=2.5 else lwd=lwd
-if (missing(ResetPAR)) ResetPAR=TRUE else ResetPAR=ResetPAR
-if (missing(PAR)) PAR=NULL else PAR=PAR
-if (missing(XLIMd)) XLIMd=NULL else XLIMd=XLIMd
-if (missing(YLIMd)) YLIMd=NULL else YLIMd=YLIMd
-if (missing(COLORd)) COLORd=NULL else COLORd=COLORd
-if (missing(COLORB)) COLORB=NULL else COLORB=COLORB
-if (missing(COLORs)) COLORs=NULL else COLORs=COLORs
-if (missing(LEGENDd)) LEGENDd=NULL else LEGENDd=LEGENDd
-if (missing(AXISd)) AXISd=NULL else AXISd=AXISd
-if (missing(MTEXTd)) MTEXTd=NULL else MTEXTd=MTEXTd
-if (missing(TEXTd)) TEXTd=NULL else TEXTd=TEXTd
-if (missing(XLIMs)) XLIMs=NULL else XLIMs=XLIMs
-if (missing(YLIMs)) YLIMs=NULL else YLIMs=YLIMs
-if (missing(PCHs)) PCHs=NULL else PCHs=PCHs
-if (missing(LEGENDs)) LEGENDs=NULL else LEGENDs=LEGENDs
-if (missing(MTEXTs)) MTEXTs=NULL else MTEXTs=MTEXTs
-if (missing(TEXTs)) TEXTs=NULL else TEXTs=TEXTs
-if (missing(LEGENDr)) LEGENDr=NULL else LEGENDr=LEGENDr
-if (missing(MTEXTr)) MTEXTr=NULL else MTEXTr=MTEXTr
-if (missing(TEXTr)) TEXTr=NULL else TEXTr=TEXTr
-if (missing(TEXTa)) TEXTa=NULL else TEXTa=TEXTa
-if (missing(model)) model= "Model.rda" else model = model
-if (missing(file1)) file1= "Overlap.csv" else file1 = file1
-if (missing(file4)) file4= "Polar coordinates.csv" else file4 = file4
-if (missing(na)) na="NA" else na=na
-if (missing(dec)) dec="," else dec=dec
-if (missing(row.names)) row.names=FALSE else row.names=row.names
-if (missing(stepwise)) stepwise= TRUE else stepwise = stepwise
-if (missing(model)) model= "Model.rda" else model = model
-if (missing(file2)) file2= "Coefficients.csv" else file2 = file2
-if (missing(file3)) file3= "Predictions.csv" else file3 = file3
-if (missing(file)) file="Output.txt" else file=file
-
-
-#Paquetes necesarios
-
-
-if(requireNamespace("kulife", quietly = TRUE)){kulife::auc}
-
-
-if(requireNamespace("adehabitatHS", quietly = TRUE)){adehabitatHS::biv.test}
-
-
-if(requireNamespace("MASS", quietly = TRUE)){MASS::stepAIC}
-
-
-if(requireNamespace("car", quietly = TRUE)){car::scatterplot}
-
-
-if(requireNamespace("ade4", quietly = TRUE)){ade4::as.randtest}
-
-
-
 codl<-length(variables)
 
 valorX12<-"NO"
@@ -191,8 +114,8 @@ p<-d1$y-d2$y
 p[which(p<0)]=0
 p3<-d1$y-p
 p3[which(p3<0)]=0
-auc1<-auc(d1$x,d1$y)
-auc3<-auc(d1$x,p3)
+auc1<-kulife::auc(d1$x,d1$y)
+auc3<-kulife::auc(d1$x,p3)
 P1<-auc3*100/auc1
 if(dati[h]==dati[i]){
 }
@@ -455,7 +378,7 @@ modelo<-glm(formula,family=binomial("logit"), data=datos3)
 
 
 if(stepwise==TRUE){
-modelo.2<-stepAIC(modelo, data=datos3)
+modelo.2<-MASS::stepAIC(modelo, data=datos3)
 }
 else {
 modelo.2<-modelo
@@ -617,7 +540,7 @@ tp1<-0
 
 for(ww in 1:wz[1]){#bucle para grupo 2
 
-if(X1>X2) randX<-as.randtest(as.numeric(grupo1[,1]), as.numeric(grupo2[ww,1]), alter="less") else randX<-as.randtest(as.numeric(grupo1[,1]), as.numeric(grupo2[ww,1]), alter="greater")
+if(X1>X2) randX<-ade4::as.randtest(as.numeric(grupo1[,1]), as.numeric(grupo2[ww,1]), alter="less") else randX<-ade4::as.randtest(as.numeric(grupo1[,1]), as.numeric(grupo2[ww,1]), alter="greater")
 
 
 tp1<-tp1+randX$pvalue
@@ -637,7 +560,7 @@ tp2<-0
 for(ww in 1:wz[1]){#bucle para grupo 2
 
 
-if(X2>X1) randX<-as.randtest(as.numeric(grupo2[,1]), as.numeric(grupo1[ww,1]), alter="less") else randX<-as.randtest(as.numeric(grupo2[,1]), as.numeric(grupo1[ww,1]), alter="greater")
+if(X2>X1) randX<-ade4::as.randtest(as.numeric(grupo2[,1]), as.numeric(grupo1[ww,1]), alter="less") else randX<-ade4::as.randtest(as.numeric(grupo2[,1]), as.numeric(grupo1[ww,1]), alter="greater")
 
 tp2<-tp2+randX$pvalue
 
@@ -862,8 +785,8 @@ if(distA>dist){
 
 for(ww in 1:wz[1]){#bucle para grupo 2
 
-if(X1>X2) randX<-as.randtest(as.numeric(grupo1[,2]), as.numeric(grupo2[ww,2]), alter="less") else randX<-as.randtest(as.numeric(grupo1[,2]), as.numeric(grupo2[ww,2]), alter="greater")
-if(Y1>Y2) randY<-as.randtest(as.numeric(grupo1[,3]), as.numeric(grupo2[ww,3]), alter="less") else randY<-as.randtest(as.numeric(grupo1[,3]), as.numeric(grupo2[ww,3]), alter="greater")
+if(X1>X2) randX<-ade4::as.randtest(as.numeric(grupo1[,2]), as.numeric(grupo2[ww,2]), alter="less") else randX<-ade4::as.randtest(as.numeric(grupo1[,2]), as.numeric(grupo2[ww,2]), alter="greater")
+if(Y1>Y2) randY<-ade4::as.randtest(as.numeric(grupo1[,3]), as.numeric(grupo2[ww,3]), alter="less") else randY<-ade4::as.randtest(as.numeric(grupo1[,3]), as.numeric(grupo2[ww,3]), alter="greater")
 
 
 
@@ -880,13 +803,13 @@ wy<-ww
 
 }#fin bucle grupo 2
 
-if(X1>X2) randX<-as.randtest(as.numeric(grupo1[,2]), as.numeric(grupo2[wx,2]), alter="less") else randX<-as.randtest(as.numeric(grupo1[,2]), as.numeric(grupo2[wx,2]), alter="greater")
-if(Y1>Y2) randY<-as.randtest(as.numeric(grupo1[,3]), as.numeric(grupo2[wx,3]), alter="less") else randY<-as.randtest(as.numeric(grupo1[,3]), as.numeric(grupo2[wx,3]), alter="greater")
+if(X1>X2) randX<-ade4::as.randtest(as.numeric(grupo1[,2]), as.numeric(grupo2[wx,2]), alter="less") else randX<-ade4::as.randtest(as.numeric(grupo1[,2]), as.numeric(grupo2[wx,2]), alter="greater")
+if(Y1>Y2) randY<-ade4::as.randtest(as.numeric(grupo1[,3]), as.numeric(grupo2[wx,3]), alter="less") else randY<-ade4::as.randtest(as.numeric(grupo1[,3]), as.numeric(grupo2[wx,3]), alter="greater")
 
 X12<-min(randX$pvalue,randY$pvalue)
 
-if(X1>X2) randX<-as.randtest(as.numeric(grupo1[,2]), as.numeric(grupo2[wy,2]), alter="less") else randX<-as.randtest(as.numeric(grupo1[,2]), as.numeric(grupo2[wy,2]), alter="greater")
-if(Y1>Y2) randY<-as.randtest(as.numeric(grupo1[,3]), as.numeric(grupo2[wy,3]), alter="less") else randY<-as.randtest(as.numeric(grupo1[,3]), as.numeric(grupo2[wy,3]), alter="greater")
+if(X1>X2) randX<-ade4::as.randtest(as.numeric(grupo1[,2]), as.numeric(grupo2[wy,2]), alter="less") else randX<-ade4::as.randtest(as.numeric(grupo1[,2]), as.numeric(grupo2[wy,2]), alter="greater")
+if(Y1>Y2) randY<-ade4::as.randtest(as.numeric(grupo1[,3]), as.numeric(grupo2[wy,3]), alter="less") else randY<-ade4::as.randtest(as.numeric(grupo1[,3]), as.numeric(grupo2[wy,3]), alter="greater")
 
 Y12<-min(randX$pvalue,randY$pvalue)
 
@@ -915,8 +838,8 @@ wz<-dim(grupo1)
 
 for(ww in 1:wz[1]){#bucle para grupo 1
 
-if(X2>X1) randX<-as.randtest(as.numeric(grupo2[,2]), as.numeric(grupo1[ww,2]), alter="less") else randX<-as.randtest(as.numeric(grupo2[,2]), as.numeric(grupo1[ww,2]), alter="greater")
-if(Y2>Y1) randY<-as.randtest(as.numeric(grupo2[,3]), as.numeric(grupo1[ww,3]), alter="less") else randY<-as.randtest(as.numeric(grupo2[,3]), as.numeric(grupo1[ww,3]), alter="greater")
+if(X2>X1) randX<-ade4::as.randtest(as.numeric(grupo2[,2]), as.numeric(grupo1[ww,2]), alter="less") else randX<-ade4::as.randtest(as.numeric(grupo2[,2]), as.numeric(grupo1[ww,2]), alter="greater")
+if(Y2>Y1) randY<-ade4::as.randtest(as.numeric(grupo2[,3]), as.numeric(grupo1[ww,3]), alter="less") else randY<-ade4::as.randtest(as.numeric(grupo2[,3]), as.numeric(grupo1[ww,3]), alter="greater")
 
 if(X21<=randX$pvalue){
 X21<-randX$pvalue
@@ -932,13 +855,13 @@ wy<-ww
 }#fin bucle grupo 1
 
 
-if(X2>X1) randX<-as.randtest(as.numeric(grupo2[,2]), as.numeric(grupo1[wx,2]), alter="less") else randX<-as.randtest(as.numeric(grupo2[,2]), as.numeric(grupo1[wx,2]), alter="greater")
-if(Y2>Y1) randY<-as.randtest(as.numeric(grupo2[,3]), as.numeric(grupo1[wx,3]), alter="less") else randY<-as.randtest(as.numeric(grupo2[,3]), as.numeric(grupo1[wx,3]), alter="greater")
+if(X2>X1) randX<-ade4::as.randtest(as.numeric(grupo2[,2]), as.numeric(grupo1[wx,2]), alter="less") else randX<-ade4::as.randtest(as.numeric(grupo2[,2]), as.numeric(grupo1[wx,2]), alter="greater")
+if(Y2>Y1) randY<-ade4::as.randtest(as.numeric(grupo2[,3]), as.numeric(grupo1[wx,3]), alter="less") else randY<-ade4::as.randtest(as.numeric(grupo2[,3]), as.numeric(grupo1[wx,3]), alter="greater")
 
 X21<-min(randX$pvalue,randY$pvalue)
 
-if(X2>X1) randX<-as.randtest(as.numeric(grupo2[,2]), as.numeric(grupo1[wy,2]), alter="less") else randX<-as.randtest(as.numeric(grupo2[,2]), as.numeric(grupo1[wy,2]), alter="greater")
-if(Y2>Y1) randY<-as.randtest(as.numeric(grupo2[,3]), as.numeric(grupo1[wy,3]), alter="less") else randY<-as.randtest(as.numeric(grupo2[,3]), as.numeric(grupo1[wy,3]), alter="greater")
+if(X2>X1) randX<-ade4::as.randtest(as.numeric(grupo2[,2]), as.numeric(grupo1[wy,2]), alter="less") else randX<-ade4::as.randtest(as.numeric(grupo2[,2]), as.numeric(grupo1[wy,2]), alter="greater")
+if(Y2>Y1) randY<-ade4::as.randtest(as.numeric(grupo2[,3]), as.numeric(grupo1[wy,3]), alter="less") else randY<-ade4::as.randtest(as.numeric(grupo2[,3]), as.numeric(grupo1[wy,3]), alter="greater")
 
 Y21<-min(randX$pvalue,randY$pvalue)
 
@@ -1143,11 +1066,11 @@ par(font.lab=2, mar=c(5,5,3,2),cex.lab=1.5)
 
 
 if(!is.null(SCATTERPLOT)){
-scatterplotexe<-paste("scatterplot(","Y~X| Group,", "data=datosF,", toString(x=SCATTERPLOT), ")")
+scatterplotexe<-paste("car::scatterplot(","Y~X| Group,", "data=datosF,", toString(x=SCATTERPLOT), ")")
 eval(parse(text=scatterplotexe))
 }
 else{
-scatterplotexe<-paste("scatterplot(","Y~X| Group,", "data=datosF,", "reg.line=FALSE,",
+scatterplotexe<-paste("car::scatterplot(","Y~X| Group,", "data=datosF,", "reg.line=FALSE,",
 "smooth=FALSE,", "spread=FALSE,", "span= 1," ,"grid=FALSE,", "xlab=xlab,","ylab=ylab,","xlim=XLIMs,","ylim=YLIMs,",
 "boxplots=FALSE,", "by.groups=TRUE,", "ellipse=TRUE,", "col=color1,", "pch=pcht,","legend.plot=FALSE", ")")
 eval(parse(text=scatterplotexe))
@@ -1220,11 +1143,11 @@ ag<-angle*aa
 x2<-minar*cos(ag)*larrow+meanx
 y2<-minar*sin(ag)*larrow+meany
 if(!is.null(ARROWS)){
-arrowsexe<-paste("Arrows(","x1=meanx,", "y1=meany,", "x2=-x2,", "y2=y2,", toString(x=ARROWS), ")")
+arrowsexe<-paste("IDPmisc::Arrows(","x1=meanx,", "y1=meany,", "x2=-x2,", "y2=y2,", toString(x=ARROWS), ")")
 eval(parse(text=arrowsexe))
 }
 else{
-arrowsexe<-paste("Arrows(","x1=meanx,", "y1=meany,", "x2=x2,", "y2=y2,", "open=FALSE", ")")
+arrowsexe<-paste("IDPmisc::Arrows(","x1=meanx,", "y1=meany,", "x2=x2,", "y2=y2,", "open=FALSE", ")")
 eval(parse(text=arrowsexe))
 }
 
@@ -1244,11 +1167,11 @@ ag<-angle*aa
 x2<-minar*cos(ag+180*0.0174532925)*larrow+meanx
 y2<-minar*sin(ag+180*0.0174532925)*larrow+meany
 if(!is.null(ARROWS)){
-arrowsexe<-paste("Arrows(","x1=meanx,", "y1=meany,", "x2=-x2,", "y2=y2,", toString(x=ARROWS), ")")
+arrowsexe<-paste("IDPmisc::Arrows(","x1=meanx,", "y1=meany,", "x2=-x2,", "y2=y2,", toString(x=ARROWS), ")")
 eval(parse(text=arrowsexe))
 }
 else{
-arrowsexe<-paste("Arrows(","x1=meanx,", "y1=meany,", "x2=x2,", "y2=y2,", "open=FALSE", ")")
+arrowsexe<-paste("IDPmisc::Arrows(","x1=meanx,", "y1=meany,", "x2=x2,", "y2=y2,", "open=FALSE", ")")
 eval(parse(text=arrowsexe))
 }
 
@@ -1322,11 +1245,11 @@ point1 <- c(grupo2[po1,2], grupo2[po1,3])
 dev.new()
 
 if(!is.null(BIVTEST12)){
-tx<-paste("biv.test(","dfxy=grupo1[,2:3],", "point=point1,",  toString(x=BIVTEST12), ")")
+tx<-paste("adehabitatHS::biv.test(","dfxy=grupo1[,2:3],", "point=point1,",  toString(x=BIVTEST12), ")")
 eval(parse(text=tx))
 }
 else{
-tx<-paste("biv.test(","dfxy=grupo1[,2:3],", "point=point1,", "br=br,",
+tx<-paste("adehabitatHS::biv.test(","dfxy=grupo1[,2:3],", "point=point1,", "br=br,",
 "Pcol=Pcol,", "col=colbiv,", "sub=sub", ")")
 eval(parse(text=tx))
 }
@@ -1392,11 +1315,11 @@ point2 <- c(grupo1[po2,2], grupo1[po2,3])
 dev.new()
 
 if(!is.null(BIVTEST21)){
-tx<-paste("biv.test(","dfxy=grupo2[,2:3],", "point=point2,",  toString(x=BIVTEST21), ")")
+tx<-paste("adehabitatHS::biv.test(","dfxy=grupo2[,2:3],", "point=point2,",  toString(x=BIVTEST21), ")")
 eval(parse(text=tx))
 }
 else{
-tx<-paste("biv.test(","dfxy=grupo2[,2:3],", "point=point2,", "br=br,",
+tx<-paste("adehabitatHS::biv.test(","dfxy=grupo2[,2:3],", "point=point2,", "br=br,",
 "Pcol=Pcol,", "col=colbiv,", "sub=sub,", ")")
 eval(parse(text=tx))
 }
