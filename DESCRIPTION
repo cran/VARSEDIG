@@ -1,5 +1,5 @@
 Package: VARSEDIG
-Version: 1.3
+Version: 1.4
 Title: An Algorithm for Morphometric Characters Selection and
         Statistical Validation in Morphological Taxonomy
 Author: Cástor Guisande González
@@ -11,5 +11,5 @@ Depends: R (>= 3.1.1)
 Suggests: adehabitatHS, kulife, MASS, car, ade4, IDPmisc
 Repository: CRAN
 NeedsCompilation: no
-Packaged: 2016-11-05 08:16:05 UTC; castor
-Date/Publication: 2016-11-05 20:10:36
+Packaged: 2017-09-01 18:09:15 UTC; castor
+Date/Publication: 2017-09-01 18:39:28 UTC
