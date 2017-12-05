@@ -1,11 +1,11 @@
 
 #functions
-exportPattern(VARSEDIG)
+exportPattern(VARSEDIG, VARSEDIM)
 
 importFrom(stats, na.exclude, density, glm, predict, cor,
 as.formula, binomial, lm)
 
-importFrom(utils, write.csv, write.csv2, read.csv, read.csv2)
+importFrom(utils, write.csv, write.csv2, read.csv, read.csv2, read.table, write.table)
 
 importFrom(grDevices, rainbow, dev.new, dev.off)
 

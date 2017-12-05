@@ -8,7 +8,7 @@ XLABs=NULL, YLABs=NULL, XLIMs=NULL, YLIMs=NULL, PCHs=NULL, COLORs=NULL,
 LEGENDs=NULL, MTEXTs= NULL, TEXTs=NULL, LEGENDr=NULL, MTEXTr= NULL, TEXTr=NULL,
 arrows=TRUE, larrow=1, ARROWS=NULL, TEXTa=NULL, model="Model.rda",
 file1="Overlap.csv",  file2="Coefficients.csv", file3="Predictions.csv", 
-file4="Polar coordinates", file="Output.txt", na="NA", dec=",", row.names=FALSE){
+file4="Polar coordinates.csv", file="Output.txt", na="NA", dec=",", row.names=FALSE){
 
 codl<-length(variables)
 
@@ -19,7 +19,6 @@ valorY21<-"NO"
 
 corte<-"SI"
 
-
 X12<-0
 Y12<-0
 TX12<-1
@@ -29,12 +28,6 @@ X21<-0
 Y21<-0
 TX21<-1
 TY21<-1
-
-
-ZZ<-matrix(c("","","","","","","",""), nrow=4)
-
-
-
 
 
 n<-length(variables)
@@ -57,25 +50,9 @@ datos<-na.exclude(datosT)
 
 dati<-as.character(unique(datos[,2]))
 
-
-
 tot<-0
 
-
 catn<-length(unique(dati))
-
-maxden<-0
-
-
-for(h in 1:catn){
-datos3<-subset(datos, datos[,2]==dati[h])
-den<-density(datos3[,1], kernel=kernel)
-maxd<-max(den$y)
-if(maxd>maxden) maxden<-maxd else maxden<-maxden
-}
-
-
-
 
 llty<-length(lty)
 
@@ -101,7 +78,6 @@ Variable2<-"M"
 
 minimo<-min(datos[,1])
 maximo<-max(datos[,1])
-
 
 
 for(h in 1:catn){
@@ -157,13 +133,9 @@ datos<-data
 
 var<-as.character(salidaF[1,4])
 
-
-
 datosT<-data.frame(subset(datos, select=var), subset(datos, select=group))
 
 datosT<-subset(datosT,(datosT[, group] == group1) |  (datosT[, group] == group2))
-
-
 
 datos<-na.exclude(datosT)
 
@@ -180,9 +152,6 @@ par(resetPar()) }
 else{
 }
 
-
-
-
 dati<-as.character(unique(datos[,2]))
 
 if(!is.null(COLORB)){
@@ -197,7 +166,6 @@ if(!is.null(COLORd)){
 else{
 COLORd<-rainbow(length(dati),alpha=0.4)
 }
-
 
 
 if(!is.null(XLABd)) xlab<-XLABd else xlab<-var
@@ -220,8 +188,6 @@ par(font.lab=2, mar=c(5,5,3,2),cex.lab=1.5)
 }
 
 
-
-
 if(!is.null(XLIMd)){
 }
 else{
@@ -230,15 +196,9 @@ minx<-min(datos[,1])
 XLIMd<-c(minx,maxx)
 }
 
-
-
-
-
-
 catn<-length(unique(dati))
 
 maxden<-0
-
 
 for(h in 1:catn){
 datos3<-subset(datos, datos[,2]==dati[h])
@@ -246,8 +206,6 @@ den<-density(datos3[,1], kernel=kernel)
 maxd<-max(den$y)
 if(maxd>maxden) maxden<-maxd else maxden<-maxden
 }
-
-
 
 
 if(!is.null(YLIMd)){
@@ -258,6 +216,7 @@ YLIMd<-c(0,maxden)
 }
 
 
+dev.new()
 
 if(!is.null(DPLOT)){
 tx<-paste("plot.default(","x=0,", "y=0,", "type='n',", toString(x=DPLOT), ")")
@@ -289,9 +248,6 @@ datos3<-subset(datos, datos[,group]==dati[h])
 den<-density(datos3[,1], kernel=kernel)
 polygon(x=den$x, y=den$y, col=COLORd[h],border=COLORB[h], lwd=lwd,lty=lty[h])
 }
-
-
-
 
 if(!is.null(LEGENDd)){
 legendexe<-paste("legend(",toString(x=LEGENDd), ")")
@@ -326,18 +282,13 @@ else{
 }
 
 
-
-
 if(method=="logistic regression"){
-
-
 
 #Logistic regression
 
 vector<-datos[,group]
 vector<-vector[!vector == group1] 
 cod<-as.character(unique(vector))
-
 
 
 #Crear variable binaria
@@ -349,8 +300,6 @@ datosT<-na.exclude(datosT)
 varbin<-datosT[,group]
 varbinaria<-ifelse(varbin==group1,1,0)
 
-
-
 #nuevo conjunto de datos
 
 datos4<-data.frame(subset(datosT, select=variables))
@@ -359,8 +308,6 @@ datos4<-data.frame(subset(datosT, select=variables))
 datos3<-data.frame(varrespuesta=varbinaria,datos4)
 
 colnames(datos3)<-c(group,colnames(datos4))
-
-
 
 #Modelo de regresión logística.
 
@@ -374,8 +321,6 @@ fo<-paste(fo,variables[i],sep="+")
 
 formula<-as.formula(paste(group,"~",fo))
 modelo<-glm(formula,family=binomial("logit"), data=datos3)
-
-
 
 if(stepwise==TRUE){
 modelo.2<-MASS::stepAIC(modelo, data=datos3)
@@ -425,7 +370,6 @@ prob2[i, "Predictions"]<-0
 prctacierto1<-sum(prob2[,group]==prob2[,"Predictions"])/ dim(prob2)[1]*100
 
 
-
 #Aciertos grupo no referencia
 datos1<-subset(datos3, datos3[,group]==0)
 pred1<-round(predict(modelo.2, type="response", newdata=datos1))
@@ -443,8 +387,6 @@ prob2[i, "Predictions"]<-0
 }
 }
 
-
-
 prctacierto0<-sum(prob2[,group]==prob2[,"Predictions"])/ dim(prob2)[1]*100
 
 resultadocls<-c("Percentage of cases correctly identified: All cases",prctacierto)
@@ -453,11 +395,7 @@ resultadocls1<-c(paste("Percentage of cases correctly identified:",group,group1,
 
 resultadocls0<-c(paste("Percentage of cases correctly identified:",group, cod,collapse=""),prctacierto0)
 
-
-
-########################################################
-# Sección que muestra los resultados
-########################################################
+### Sección que muestra los resultados
 
 coef<-as.data.frame(modelo.2$coefficients)
 
@@ -557,7 +495,7 @@ wz<-dim(grupo1)
 
 tp2<-0
 
-for(ww in 1:wz[1]){#bucle para grupo 2
+for(ww in 1:wz[1]){#bucle para grupo 1
 
 
 if(X2>X1) randX<-ade4::as.randtest(as.numeric(grupo2[,1]), as.numeric(grupo1[ww,1]), alter="less") else randX<-ade4::as.randtest(as.numeric(grupo2[,1]), as.numeric(grupo1[ww,1]), alter="greater")
@@ -720,35 +658,37 @@ datos<-datosT
 
 #Estimation of polar coordinates
 
-angle<-360/((a[2])*2)*0.0174532925
+angle<-pi/a[2]
 
-if(zz==1) datosX<-datos[,1] else datosX<-datos[,1:ggg]
-h<-0
-for (z in (1+ggg):(a[2]+ggg)){
-h<-h+1
-datosC<- ifelse(datos[,z] <=0, abs(datos[,z])*cos(angle*h+180*0.0174532925), abs(datos[,z])*cos(angle*h)) 
-datosX<-cbind(datosX,datosC)
+if(zz==1){
+datosX<-datos[,1]
+datosY<-datos[,1]
+}
+else{
+datosX<-datos[,1:ggg]
+datosY<-datos[,1:ggg]
 }
 
-
-
-
-if(zz==1) XX<-datosC else XX<-apply(datosX[,(ggg+1):(a[2]+ggg)],1,sum)
-RX<-(max(XX)-min(XX))
-
-
-if(zz==1) datosY<-datos[,1] else datosY<-datos[,1:ggg]
 h<-0
 for (z in (1+ggg):(a[2]+ggg)){
 h<-h+1
-datosC<- ifelse(datos[,z] <=0, abs(datos[,z])*sin(angle*h+180*0.0174532925), abs(datos[,z])*sin(angle*h)) 
+datosC<- ifelse(datos[,z] <=0, abs(datos[,z])*cos(angle*h+pi), abs(datos[,z])*cos(angle*h)) 
+datosX<-cbind(datosX,datosC)
+datosC<- ifelse(datos[,z] <=0, abs(datos[,z])*sin(angle*h+pi), abs(datos[,z])*sin(angle*h)) 
 datosY<-cbind(datosY,datosC)
 }
 
+if(zz==1){
+XX<-datosC
+YY<-datosC 
+}
+else{
+XX<-apply(datosX[,(ggg+1):(a[2]+ggg)],1,sum)
+YY<-apply(datosY[,(ggg+1):(a[2]+ggg)],1,sum)
+}
+RX<-(max(XX)-min(XX))
 
-if(zz==1) YY<-datosC else YY<-apply(datosY[,(ggg+1):(a[2]+ggg)],1,sum)
 RY<-(max(YY)-min(YY))
-
 
 
 if(zz==1) datosF<-data.frame(datos[,1],XX,YY) else datosF<-data.frame(datos[,1:ggg],XX,YY)
@@ -779,15 +719,10 @@ wz<-dim(grupo2)
 if(distA>dist){
 
 
-
-
-
-
 for(ww in 1:wz[1]){#bucle para grupo 2
 
 if(X1>X2) randX<-ade4::as.randtest(as.numeric(grupo1[,2]), as.numeric(grupo2[ww,2]), alter="less") else randX<-ade4::as.randtest(as.numeric(grupo1[,2]), as.numeric(grupo2[ww,2]), alter="greater")
 if(Y1>Y2) randY<-ade4::as.randtest(as.numeric(grupo1[,3]), as.numeric(grupo2[ww,3]), alter="less") else randY<-ade4::as.randtest(as.numeric(grupo1[,3]), as.numeric(grupo2[ww,3]), alter="greater")
-
 
 
 if(X12<=randX$pvalue){
@@ -885,8 +820,6 @@ valorY21<-"NO"
 TY21<-Y21
 }
 }
-
-
 
 
 if(minimum==FALSE){
@@ -1134,7 +1067,7 @@ minar<-min((maxsy-minsy),(maxsx-minsx))/4
 
 dima<-length(var)
 
-angle<-360/((dima)*2)*0.0174532925
+angle<-pi/dima
 
 
 if(arrows==TRUE){
@@ -1164,8 +1097,8 @@ eval(parse(text=textexe))
 
 for(aa in 1:dima){
 ag<-angle*aa
-x2<-minar*cos(ag+180*0.0174532925)*larrow+meanx
-y2<-minar*sin(ag+180*0.0174532925)*larrow+meany
+x2<-minar*cos(ag+pi)*larrow+meanx
+y2<-minar*sin(ag+pi)*larrow+meany
 if(!is.null(ARROWS)){
 arrowsexe<-paste("IDPmisc::Arrows(","x1=meanx,", "y1=meany,", "x2=-x2,", "y2=y2,", toString(x=ARROWS), ")")
 eval(parse(text=arrowsexe))

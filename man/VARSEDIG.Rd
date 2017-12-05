@@ -14,7 +14,7 @@ MTEXTd= NULL, TEXTd=NULL, XLABs=NULL, YLABs=NULL, XLIMs=NULL, YLIMs=NULL,
 PCHs=NULL, COLORs=NULL, LEGENDs=NULL, MTEXTs=NULL, TEXTs=NULL, LEGENDr=NULL,
 MTEXTr= NULL, TEXTr=NULL, arrows=TRUE, larrow=1, ARROWS=NULL, TEXTa=NULL,
 model="Model.rda", file1="Overlap.csv", file2="Coefficients.csv",
-file3="Predictions.csv", file4="Polar coordinates", file="Output.txt",
+file3="Predictions.csv", file4="Polar coordinates.csv", file="Output.txt",
 na="NA", dec=",", row.names=FALSE)
 }
 \arguments{
