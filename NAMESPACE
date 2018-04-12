@@ -7,7 +7,7 @@ as.formula, binomial, lm)
 
 importFrom(utils, write.csv, write.csv2, read.csv, read.csv2, read.table, write.table)
 
-importFrom(grDevices, rainbow, dev.new, dev.off)
+importFrom(grDevices, rainbow, dev.new, dev.off, chull)
 
 importFrom(graphics, par, mtext, plot, points, polygon, legend, axis, text)
 

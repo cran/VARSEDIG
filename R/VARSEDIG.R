@@ -1,7 +1,6 @@
 VARSEDIG<-function(data, variables, group, group1, group2, method="overlap", stepwise=TRUE, VARSEDIG=TRUE,
-minimum=TRUE,
-kernel="gaussian", cor=TRUE, DPLOT=NULL, SCATTERPLOT=NULL, BIVTEST12=NULL, BIVTEST21=NULL,
-Pcol="red", colbiv="lightblue", br=20, sub="", lty=1, lwd=2.5, 
+minimum=TRUE,kernel="gaussian", cor=TRUE, ellipse=TRUE, convex=FALSE, DPLOT=NULL, SCATTERPLOT=NULL,
+BIVTEST12=NULL, BIVTEST21=NULL, Pcol="red", colbiv="lightblue", br=20, sub="", lty=1, lwd=2.5, 
 ResetPAR=TRUE,  PAR=NULL,  XLABd=NULL, YLABd=NULL, XLIMd=NULL,
 YLIMd=NULL, COLORd=NULL, COLORB=NULL,  LEGENDd=NULL, AXISd=NULL, MTEXTd= NULL, TEXTd=NULL,
 XLABs=NULL, YLABs=NULL, XLIMs=NULL, YLIMs=NULL, PCHs=NULL, COLORs=NULL, 
@@ -9,6 +8,11 @@ LEGENDs=NULL, MTEXTs= NULL, TEXTs=NULL, LEGENDr=NULL, MTEXTr= NULL, TEXTr=NULL,
 arrows=TRUE, larrow=1, ARROWS=NULL, TEXTa=NULL, model="Model.rda",
 file1="Overlap.csv",  file2="Coefficients.csv", file3="Predictions.csv", 
 file4="Polar coordinates.csv", file="Output.txt", na="NA", dec=",", row.names=FALSE){
+
+
+if(is.null(group) & (ellipse==TRUE | convex==TRUE)) {
+stop("It is necessary to specify the group")
+}
 
 codl<-length(variables)
 
@@ -944,8 +948,9 @@ if(!is.null(COLORs)){
 color1<-COLORs
 }
 else{
-color1<-rainbow(length(unique(datosF[,1])))
+if(convex==TRUE) color1<-rainbow(length(unique(datosF[,1])), alpha=0.4) else color1<-rainbow(length(unique(datosF[,1])))
 }
+
 
 catn<-length(unique(datosF[,1]))
 
@@ -1005,9 +1010,24 @@ eval(parse(text=scatterplotexe))
 else{
 scatterplotexe<-paste("car::scatterplot(","Y~X| Group,", "data=datosF,", "reg.line=FALSE,",
 "smooth=FALSE,", "spread=FALSE,", "span= 1," ,"grid=FALSE,", "xlab=xlab,","ylab=ylab,","xlim=XLIMs,","ylim=YLIMs,",
-"boxplots=FALSE,", "by.groups=TRUE,", "ellipse=TRUE,", "col=color1,", "pch=pcht,","legend.plot=FALSE", ")")
+"boxplots=FALSE,", "by.groups=TRUE,", "ellipse=ellipse,", "col=color1,", "pch=pcht,","legend.plot=FALSE", ")")
 eval(parse(text=scatterplotexe))
 }
+
+dati<-as.character(unique(datosF[,1]))
+
+if(!is.null(group)){
+if(convex==TRUE){
+for(zz in 1:catn){
+datis<-subset(datosF,(datosF[,"Group"] == dati[zz]))
+hpts <- chull(x=datis[,"X"], y=datis[,"Y"])
+hpts <- c(hpts, hpts[1])
+datiss<-datis[hpts,]
+polygon(datiss[,2],datiss[,3], col=color1[zz], border=NA)
+}
+}
+}
+
 
 
 if(!is.null(TEXTs)){

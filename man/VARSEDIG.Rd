@@ -6,10 +6,10 @@
 \description{This function performs an algorithm for morphometric characters selection and statistical validation in morphological taxonomy.}
 \usage{
 VARSEDIG(data, variables, group, group1, group2, method="overlap", stepwise=TRUE,
-VARSEDIG=TRUE, minimum=TRUE, kernel="gaussian", cor=TRUE, DPLOT=NULL,
-SCATTERPLOT=NULL, BIVTEST12=NULL, BIVTEST21=NULL, Pcol="red", colbiv="lightblue",
-br=20, sub="", lty=1, lwd=2.5, ResetPAR=TRUE, PAR=NULL, XLABd=NULL, YLABd=NULL,
-XLIMd=NULL, YLIMd=NULL, COLORd=NULL, COLORB=NULL, LEGENDd=NULL, AXISd=NULL,
+VARSEDIG=TRUE, minimum=TRUE, kernel="gaussian", cor=TRUE, ellipse=TRUE, convex=FALSE,
+DPLOT=NULL, SCATTERPLOT=NULL, BIVTEST12=NULL, BIVTEST21=NULL, Pcol="red",
+colbiv="lightblue", br=20, sub="", lty=1, lwd=2.5, ResetPAR=TRUE, PAR=NULL, XLABd=NULL,
+YLABd=NULL, XLIMd=NULL, YLIMd=NULL, COLORd=NULL, COLORB=NULL, LEGENDd=NULL, AXISd=NULL,
 MTEXTd= NULL, TEXTd=NULL, XLABs=NULL, YLABs=NULL, XLIMs=NULL, YLIMs=NULL,
 PCHs=NULL, COLORs=NULL, LEGENDs=NULL, MTEXTs=NULL, TEXTs=NULL, LEGENDr=NULL,
 MTEXTr= NULL, TEXTr=NULL, arrows=TRUE, larrow=1, ARROWS=NULL, TEXTa=NULL,
@@ -29,6 +29,8 @@ na="NA", dec=",", row.names=FALSE)
   \item{minimum}{If it is TRUE, the algorithm is designed to find a significant discrimination between both groups with the minimum possible number of significant variables. Therefore, only the variables with higher discrimination capacity are selected. It is FALSE, the algorithm selects all significant variables,and not only those with higher discrimination capacity. This argument is only valid with the methods "Monte-Carlo" and "overlap" and it is useful in those cases that discrimination between the groups is difficult and requires to include as many as variables as possible.}
   \item{kernel}{A character string giving the smoothing kernel to be used for estimating the overlap of the area under the curve between groups. This must be one of "gaussian", "rectangular", "triangular", "epanechnikov", "biweight", "cosine" or "optcosine". For further details about the estimation of the density curve see the details section of the function \link[stats]{density} of base stats package.}
   \item{cor}{If it is TRUE the variables are ordered according to the correlation between them when estimating the polar coordinates. Therefore, the next variable to another variable is the one that has a greater positive correlation.}
+  \item{ellipse}{If it is TRUE the ellipses with the levels of significance to the 0.5 (inner ellipse) and 0.95 (outer ellipse) of each category of the variable \emph{group} is depicted. These levels of significance can be modified by entering the function \link[car]{scatterplot} using the argument \emph{SCATTERPLOT} and modifying the argument \emph{levels=c(0.5,0.95)}.}
+  \item{convex}{If it is TRUE the convex hull is depicted for each category.}
   \item{DPLOT}{It allows to specify the characteristics of the function \link[graphics]{plot.default} of the density plot.}
   \item{SCATTERPLOT}{It accesses the function \link[car]{scatterplot} of the car package, with the graph \emph{biplot} that performs the X an Y polar coordinates.}
   \item{BIVTEST12}{It accesses the function \link[adehabitatHS]{biv.test} of the package adehabitatHS, which performs the bivariate plot that displays the results of a bivariate randomisation test. From all values of group 2, it shows the value with higher probability to belong to group 1.}
@@ -129,7 +131,7 @@ If p-value is close or lower than 0.05 for X or Y polar coordinates, but in both
 
 \strong{FUNCTIONS}
 
-The density plot is performed with the function \link[graphics]{plot.default} of base graphics package. The density curve is estimated with the function \link[stats]{density} of base stats package. The area under the curve is estimated with the function \link[kulife]{auc} of the package kulife (Ekstrom et al., 2015). The random test was performed with the function \link[ade4]{as.randtest} of the package ade4 (Chessel et al., 2004; Dray et al., 2007; 2015). The bivariate plot that displays the results of a bivariate randomisation test, for which the p-values are computed with the function \link[ade4]{as.randtest} (one-sided tests), was performed with the function \link[adehabitatHS]{biv.test} of the package adehabitatHS (Calenge, 2006; 2015). The arrows are depicted with the function \link[IDPmisc]{Arrows} of the package IDPmisc (Locher & Ruckstuhl, 2014). The scatterplot is performed with the function \link[car]{scatterplot} of the car package (Fox & Weisberg, 2011; Fox et al., 2014).
+The density plot is performed with the function \link[graphics]{plot.default} of base graphics package. The density curve is estimated with the function \link[stats]{density} of base stats package. The area under the curve is estimated with the function \link[kulife]{auc} of the package kulife (Ekstrom et al., 2015). The random test was performed with the function \link[ade4]{as.randtest} of the package ade4 (Chessel et al., 2004; Dray et al., 2007; 2015). The bivariate plot that displays the results of a bivariate randomisation test, for which the p-values are computed with the function \link[ade4]{as.randtest} (one-sided tests), was performed with the function \link[adehabitatHS]{biv.test} of the package adehabitatHS (Calenge, 2006; 2015). The arrows are depicted with the function \link[IDPmisc]{Arrows} of the package IDPmisc (Locher & Ruckstuhl, 2014). The scatterplot is performed with the function \link[car]{scatterplot} of the car package (Fox & Weisberg, 2011; Fox et al., 2014). The convex hull is estimated with the function \link[grDevices]{chull} of the package grDevices.
 
 \strong{EXAMPLES}
 
