@@ -1008,9 +1008,9 @@ scatterplotexe<-paste("car::scatterplot(","Y~X| Group,", "data=datosF,", toStrin
 eval(parse(text=scatterplotexe))
 }
 else{
-scatterplotexe<-paste("car::scatterplot(","Y~X| Group,", "data=datosF,", "reg.line=FALSE,",
+scatterplotexe<-paste("car::scatterplot(","Y~X| Group,", "data=datosF,", "regLine=FALSE,",
 "smooth=FALSE,", "spread=FALSE,", "span= 1," ,"grid=FALSE,", "xlab=xlab,","ylab=ylab,","xlim=XLIMs,","ylim=YLIMs,",
-"boxplots=FALSE,", "by.groups=TRUE,", "ellipse=ellipse,", "col=color1,", "pch=pcht,","legend.plot=FALSE", ")")
+"boxplots=FALSE,", "by.groups=TRUE,", "ellipse=ellipse,", "col=color1,", "pch=pcht,","legend=list(coords=c(x=500000000,y=500000000))", ")")
 eval(parse(text=scatterplotexe))
 }
 
