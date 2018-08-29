@@ -1,14 +1,12 @@
 
 #functions
-exportPattern(VARSEDIG, VARSEDIM)
+exportPattern(VARSEDIG, VARSEDIM, IDTAXA)
 
-importFrom(stats, na.exclude, density, glm, predict, cor,
-as.formula, binomial, lm)
+importFrom(stats, na.exclude, density, glm, predict, cor, as.formula, binomial, lm, aggregate, cutree, median, na.omit, rect.hclust, wilcox.test)
 
 importFrom(utils, write.csv, write.csv2, read.csv, read.csv2, read.table, write.table)
 
-importFrom(grDevices, rainbow, dev.new, dev.off, chull)
+importFrom(grDevices, rainbow, dev.new, dev.off, chull, dev.list, pdf, terrain.colors)
 
 importFrom(graphics, par, mtext, plot, points, polygon, legend, axis, text)
-
 

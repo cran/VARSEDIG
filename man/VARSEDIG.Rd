@@ -6,13 +6,13 @@
 \description{This function performs an algorithm for morphometric characters selection and statistical validation in morphological taxonomy.}
 \usage{
 VARSEDIG(data, variables, group, group1, group2, method="overlap", stepwise=TRUE,
-VARSEDIG=TRUE, minimum=TRUE, kernel="gaussian", cor=TRUE, ellipse=TRUE, convex=FALSE,
+VARSEDIG=TRUE, minimum=TRUE, kernel="gaussian", cor=TRUE, ellipse=FALSE, convex=TRUE,
 DPLOT=NULL, SCATTERPLOT=NULL, BIVTEST12=NULL, BIVTEST21=NULL, Pcol="red",
 colbiv="lightblue", br=20, sub="", lty=1, lwd=2.5, ResetPAR=TRUE, PAR=NULL, XLABd=NULL,
 YLABd=NULL, XLIMd=NULL, YLIMd=NULL, COLORd=NULL, COLORB=NULL, LEGENDd=NULL, AXISd=NULL,
 MTEXTd= NULL, TEXTd=NULL, XLABs=NULL, YLABs=NULL, XLIMs=NULL, YLIMs=NULL,
 PCHs=NULL, COLORs=NULL, LEGENDs=NULL, MTEXTs=NULL, TEXTs=NULL, LEGENDr=NULL,
-MTEXTr= NULL, TEXTr=NULL, arrows=TRUE, larrow=1, ARROWS=NULL, TEXTa=NULL,
+MTEXTr= NULL, TEXTr=NULL, arrows=TRUE, larrow=1, ARROWS=NULL, TEXTa=NULL, devnew=TRUE,
 model="Model.rda", file1="Overlap.csv", file2="Coefficients.csv",
 file3="Predictions.csv", file4="Polar coordinates.csv", file="Output.txt",
 na="NA", dec=",", row.names=FALSE)
@@ -26,7 +26,7 @@ na="NA", dec=",", row.names=FALSE)
   \item{method}{Three different methods for prioritizing the variables according to their capacity for discrimination can be used. If the method is "overlap", a density curve is obtained for each variable and the overlap of the area under the curve between the two groups of the variable \emph{group} is estimated for all variables. Those variables with lower overlap should have better discrimination capacities and, hence, all variables are ordered from lowest to highest overlap; in other words from the highest to lowest discrimination capacity. If the method is "Monte-Carlo", a Monte-Carlo test is performed comparing all values of group 1 with group 2, and all values of group 2 with 1. The variables are prioritized from the variable with the lowest mean of all p-values (highest discrimination capacity) to the variable with the highest mean of all p-values (lowest discrimination capacity). If the method is "logistic regression", then a binomial logistic regression is calculated and if the argument stepwise=TRUE (default option), then only significant variables are selected for further analyses with the regression performed by steps using the Akaike Information Criterion (AIC).}
   \item{stepwise}{If TRUE, the logistic regression is applied by steps, in order to eliminate those variables that are not significant. The Akaike information criterion (\emph{AIC}) is used to define what are the variables that are excluded.}
   \item{VARSEDIG}{If it is TRUE, the variables are added for the estimation of polar coordinates in the priority order according to the method "overlap", "Monte-Carlo", or "logistic regression" and the variable is selected if it significantly contributes to discriminate between both groups. See details section for further information.}
-  \item{minimum}{If it is TRUE, the algorithm is designed to find a significant discrimination between both groups with the minimum possible number of significant variables. Therefore, only the variables with higher discrimination capacity are selected. It is FALSE, the algorithm selects all significant variables,and not only those with higher discrimination capacity. This argument is only valid with the methods "Monte-Carlo" and "overlap" and it is useful in those cases that discrimination between the groups is difficult and requires to include as many as variables as possible.}
+  \item{minimum}{If it is TRUE, the algorithm is designed to find a significant discrimination between both groups with the minimum possible number of significant variables. Therefore, only the variables with higher discrimination capacity are selected. If it is FALSE, the algorithm selects all significant variables, and not only those with higher discrimination capacity. This argument is only valid with the methods "Monte-Carlo" and "overlap" and it is useful in those cases that discrimination between the groups is difficult and requires to include as many as variables as possible.}
   \item{kernel}{A character string giving the smoothing kernel to be used for estimating the overlap of the area under the curve between groups. This must be one of "gaussian", "rectangular", "triangular", "epanechnikov", "biweight", "cosine" or "optcosine". For further details about the estimation of the density curve see the details section of the function \link[stats]{density} of base stats package.}
   \item{cor}{If it is TRUE the variables are ordered according to the correlation between them when estimating the polar coordinates. Therefore, the next variable to another variable is the one that has a greater positive correlation.}
   \item{ellipse}{If it is TRUE the ellipses with the levels of significance to the 0.5 (inner ellipse) and 0.95 (outer ellipse) of each category of the variable \emph{group} is depicted. These levels of significance can be modified by entering the function \link[car]{scatterplot} using the argument \emph{SCATTERPLOT} and modifying the argument \emph{levels=c(0.5,0.95)}.}
@@ -69,6 +69,7 @@ na="NA", dec=",", row.names=FALSE)
   \item{larrow}{It modifies the length of the arrows.}
   \item{ARROWS}{It accesses the function \link[IDPmisc]{Arrows} of the package IDPmisc, which performs the arrows.}
   \item{TEXTa}{It allows to modify the labels at the end of the arrows.}
+  \item{devnew}{If it is TRUE, each plot is depicted in a different window.}
   \item{model}{Filename with the model of the binomial logistic regression.}
   \item{file1}{CSV FILE. Filename with the overlap of the area under the curve between both categories for all variables.}
   \item{file2}{CSV FILES. Filename with regression coefficients of the binomial logistic regression.}
@@ -140,7 +141,9 @@ For the example, morphometric data of three families of freshwater fishes, as th
 Figure shows the plots obtained with VARSEDIG (Guisande et al., 2016), in an example comparing the species \emph{Moenkhausia dichroura} and \emph{Moenkhausia oligolepis}.
 
 The variables that better discriminate between both species are the M26 (interorbital width) and M11 (distance from the dorsal-fin origin to the dorsal limit of the pelvic-fin base). Between these two variables, a density plot is depicted for the quantitative variable with lower overlap between both groups and, thus, the highest discrimination capacity: in this example M26 (Figure 1A).
-
+\tabular{c}{
+\figure{F1}{options: width=5.5in}
+}
 Figure 1B shows the scatterplot of the polar coordinates obtained for both species using variables M26 and M11. The arrows show the vector of the variables with both of these variables higher in \emph{M. oligolepis}.
 
 This example illustrates that the VARSEDIG algorithm is not only useful for identifying the variables that better discriminate between two taxa, but also may be informative when it comes to finding misidentified individuals. In the example, it appears that two individuals identified as \emph{M. oligolepis} are \emph{M. dichroura} (Figure 1B).
@@ -148,9 +151,7 @@ This example illustrates that the VARSEDIG algorithm is not only useful for iden
 Figure 1C displays the results of a bivariate randomisation test. From all individuals of the species \emph{M. dichroura}, the figure shows the individual of \emph{M. dichroura} (red point) with higher probability to be identified as belonging to the M. oligolepis. Kernel density is estimated to indicate the contours of the distribution of randomised values. The two marginal histograms correspond to the univariate tests on each axis, for which the p-values (one-sided tests) are computed. As p-value is lower than 0.05 for X axis (p = 0.04), the null hypothesis is rejected. Consequently the X polar coordinates of all individuals of the of the species \emph{M. dichroura} are significantly different than those of the species \emph{M. oligolepis} and, therefore, none of the individuals designated as \emph{M. dichroura} may be identified as belonging to the species \emph{M. oligolepis}.
 
 Figure 1D also displays the results of a bivariate randomisation test but, in this case, from all individuals of the species \emph{M. oligolepis}, the figure shows the individual (red point) with higher probability to belong to the species \emph{M. dichroura}. Both p-values are higher than 0.05, so null hypothesis is accepted for both X and Y polar coordinates. This that some individuals of the species \emph{M. oligolepis} may be identified as belonging to the species \emph{M. dichroura}.
-\tabular{c}{
-\figure{F1}{options: width=5.5in}
-}
+
 It is not necessary a p-value lower than 0.05 for both X and Y, but it is just necessary and p-value lower than 0.05 for X or Y when comparing both group 1 with 2 and group 2 with 1. Therefore, if p-value is close or lower than the significance level of 0.05 for X or Y polar coordinates in both cases comparing group 1 with 2 and group 2 with 1, it would mean a 100\% of identification success between both groups. In this example, however, with the variables M16 and M11 is not possible to predict group membership with a 100\% of accuracy because, although none of the individuals of the species \emph{M. dichroura} may be identified as belonging to the species \emph{M. oligolepis}, some individuals of the species \emph{M. oligolepis} may be identified as belonging to the species \emph{M. dichroura}. The failure to reach 100\% may be due to the possible misidentification of two individuals of \emph{M. dichroura} as \emph{M. oligolepis}.
 }
 \references{
@@ -199,7 +200,7 @@ LEGENDs=c("x='topright'", "legend=unique(datosF[,'Group'])", "col = color1",
 "legend = dati", "col=col", "pch= c(16,16)", "bty='n'", "cex=1.2", "text.font=3"),
 XLIMs=c(-1.2,1.2), YLIMs=c(-1.3,1.3), BIVTEST12=c("br=br", "cex=1.1",
 "col=colbiv", "sub=sub", "Pcol=Pcol"), BIVTEST21=c("br=br", "cex=1.1",
-"col=colbiv", "sub=sub", "Pcol=Pcol"), colbiv="blue")
+"col=colbiv", "sub=sub", "Pcol=Pcol"), colbiv="blue", ellipse=TRUE, convex=FALSE)
 
 }
 \keyword{VARSEDIG}

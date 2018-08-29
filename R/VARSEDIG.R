@@ -1,11 +1,11 @@
 VARSEDIG<-function(data, variables, group, group1, group2, method="overlap", stepwise=TRUE, VARSEDIG=TRUE,
-minimum=TRUE,kernel="gaussian", cor=TRUE, ellipse=TRUE, convex=FALSE, DPLOT=NULL, SCATTERPLOT=NULL,
+minimum=TRUE,kernel="gaussian", cor=TRUE, ellipse=FALSE, convex=TRUE, DPLOT=NULL, SCATTERPLOT=NULL,
 BIVTEST12=NULL, BIVTEST21=NULL, Pcol="red", colbiv="lightblue", br=20, sub="", lty=1, lwd=2.5, 
 ResetPAR=TRUE,  PAR=NULL,  XLABd=NULL, YLABd=NULL, XLIMd=NULL,
 YLIMd=NULL, COLORd=NULL, COLORB=NULL,  LEGENDd=NULL, AXISd=NULL, MTEXTd= NULL, TEXTd=NULL,
 XLABs=NULL, YLABs=NULL, XLIMs=NULL, YLIMs=NULL, PCHs=NULL, COLORs=NULL, 
 LEGENDs=NULL, MTEXTs= NULL, TEXTs=NULL, LEGENDr=NULL, MTEXTr= NULL, TEXTr=NULL,
-arrows=TRUE, larrow=1, ARROWS=NULL, TEXTa=NULL, model="Model.rda",
+arrows=TRUE, larrow=1, ARROWS=NULL, TEXTa=NULL, devnew=TRUE, model="Model.rda", 
 file1="Overlap.csv",  file2="Coefficients.csv", file3="Predictions.csv", 
 file4="Polar coordinates.csv", file="Output.txt", na="NA", dec=",", row.names=FALSE){
 
@@ -143,7 +143,7 @@ datosT<-subset(datosT,(datosT[, group] == group1) |  (datosT[, group] == group2)
 
 datos<-na.exclude(datosT)
 
-
+if(devnew==TRUE){
 if(ResetPAR==TRUE){
 #Resetear par() a las opciones por defecto
 resetPar <- function() {
@@ -154,6 +154,8 @@ resetPar <- function() {
 }
 par(resetPar()) }
 else{
+}
+
 }
 
 dati<-as.character(unique(datos[,2]))
@@ -219,8 +221,9 @@ else{
 YLIMd<-c(0,maxden)
 }
 
-
+if(devnew==TRUE){
 dev.new()
+}
 
 if(!is.null(DPLOT)){
 tx<-paste("plot.default(","x=0,", "y=0,", "type='n',", toString(x=DPLOT), ")")
@@ -922,10 +925,12 @@ valorY21<-"SI"
 
 
 if(method=="logistic regression"){
+if(devnew==TRUE){
 print(Resumenmodelo)
 print(resultadocls)
 print(resultadocls1)
 print(resultadocls0)
+}
 }
 else{
 Resumenmodelo<-""
@@ -966,7 +971,7 @@ if(!is.null(PCHs)) pcht<-PCHs else pcht<-pch1
 
 
 
-
+if(devnew==TRUE){
 if(ResetPAR==TRUE){
 #Resetear par() a las opciones por defecto
 resetPar <- function() {
@@ -978,7 +983,7 @@ resetPar <- function() {
 par(resetPar()) }
 else{
 }
-
+}
 
 
 
@@ -992,7 +997,9 @@ else{
 ylab<-"POLAR COORDINATES Y"
 }
 
+if(devnew==TRUE){
 dev.new()
+}
 
 if(!is.null(PAR)){
 parexe<-paste("par(new,",toString(x=PAR), ")")
@@ -1002,6 +1009,7 @@ else{
 par(font.lab=2, mar=c(5,5,3,2),cex.lab=1.5)
 }
 
+datosF[,1]<-as.factor(datosF[,1])
 
 if(!is.null(SCATTERPLOT)){
 scatterplotexe<-paste("car::scatterplot(","Y~X| Group,", "data=datosF,", toString(x=SCATTERPLOT), ")")
@@ -1194,8 +1202,9 @@ point1 <- c(grupo2[po1,2], grupo2[po1,3])
 
 
 
-
+if(devnew==TRUE){
 dev.new()
+}
 
 if(!is.null(BIVTEST12)){
 tx<-paste("adehabitatHS::biv.test(","dfxy=grupo1[,2:3],", "point=point1,",  toString(x=BIVTEST12), ")")
@@ -1264,8 +1273,9 @@ po2<-matrix2[1,1]
 point2 <- c(grupo1[po2,2], grupo1[po2,3])
 
 
-
+if(devnew==TRUE){
 dev.new()
+}
 
 if(!is.null(BIVTEST21)){
 tx<-paste("adehabitatHS::biv.test(","dfxy=grupo2[,2:3],", "point=point2,",  toString(x=BIVTEST21), ")")
@@ -1307,7 +1317,7 @@ else{
 }
 
 
-
+if(devnew==TRUE){
 cat(c("Value of ", group2,"with highest probability to belong to", group1), "\n")
 print("")
 cat(c("Row:", po1, "Values: ", point1), "\n")
@@ -1321,9 +1331,11 @@ print(var)
 print("")
 print("EUCLIDEAN DISTANCE BETWEEN GROUPS")
 print(dist)
+}
 
 
 if(method=="logistic regression"){
+if(devnew==TRUE){
 if(!is.null(file)){
 sink(file)
  print(Resumenmodelo)
@@ -1346,7 +1358,9 @@ print(dist)
 sink()
 }
 }
+}
 else{
+if(devnew==TRUE){
 if(!is.null(file)){
 sink(file)
 cat(c("Value of ", group2,"with highest probability to belong to", group1), "\n")
@@ -1363,6 +1377,7 @@ print("")
 print("EUCLIDEAN DISTANCE BETWEEN GROUPS")
 print(dist)
 sink()
+}
 }
 }
 
