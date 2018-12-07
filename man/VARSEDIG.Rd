@@ -142,7 +142,8 @@ Figure shows the plots obtained with VARSEDIG (Guisande et al., 2016), in an exa
 
 The variables that better discriminate between both species are the M26 (interorbital width) and M11 (distance from the dorsal-fin origin to the dorsal limit of the pelvic-fin base). Between these two variables, a density plot is depicted for the quantitative variable with lower overlap between both groups and, thus, the highest discrimination capacity: in this example M26 (Figure 1A).
 \tabular{c}{
-\figure{F1}{options: width=5.5in}
+\if{html}{\figure{F1.jpg}{options: width=5.5in}}
+\if{latex}{\figure{F1.jpg}{options: width=5.5in}}
 }
 Figure 1B shows the scatterplot of the polar coordinates obtained for both species using variables M26 and M11. The arrows show the vector of the variables with both of these variables higher in \emph{M. oligolepis}.
 

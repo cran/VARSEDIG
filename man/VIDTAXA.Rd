@@ -2,7 +2,7 @@
 \alias{VIDTAXA}
 \encoding{latin1}
 \title{IDENTIFICATION OF TAXA BASED ON MORPHOLOGICAL VARIABILITY}
-\description{Identification of the different taxa based the morphological variability observed in a Principal Components Analysis or a Correspondence Analysis.} 
+\description{Identification of the different taxa based on the morphological variability observed in a Principal Components Analysis or a Correspondence Analysis.} 
 \usage{
 VIDTAXA(data, var, labels, cat=NULL, analysis="PCA", por=80, k=NULL,
 pthreshold=0.05, ellipse=FALSE, convex=FALSE, dim=c(1,2), size=c(1,5),
@@ -135,7 +135,7 @@ The idea of this function is to find the largest possible number of clusters wit
 
 \strong{FUNCTIONS}
 
-The Correspondence analysis was performed with the \link[ca]{ca} function of the package ca (Greenacre & Pardo, 2006; Greenacre, 2007; Nenadic & Greenacre, 2007; Greenacre, 2013). The Principal Components Analysis was performed with the \link[stats]{prcomp} function of the stats package. The \link[usdm]{vif} function of the usdm package was used for the calculation of VIF (Naimi, 2013; Naimi et al., 2014). To perform the \emph{biplot} graph the \link[car]{scatterplot} function of the car package was used (Fox et al., 2018). The arrows are depicted with the function \link[IDPmisc]{Arrows} of the package IDPmisc (Locher & Ruckstuhl, 2014). The convex hull is estimated with the function \link[grDevices]{chull} of the package grDevices. KMO test was performed with the function \link[psych]{KMO} of the package psych (Revelle, 2018). Bartlett's test sphericity was performed with the function \link[REdaS]{bart_spher} of the package REdaS (Maier, 2015). The U Mann-Whitney test is performed with the \ emph {wilcox.test} function of the base stats package. The comparison between clusters with the VARSEDIG algorithm is done with the VARSEDIM function of the VARSEDIG package (Guisande et al., 2016: Guisande, 2018). The Linear Discriminant Analysis was performed with the functions \link[candisc]{candisc} of the candisc package (Friendly, 2007; Friendly & Fox, 2017) and \link[MASS]{lda} of the MASS package (Venables & Ripley, 2002; Ripley et al., 2018). The Quadratic Discriminant Analysis was performed with the function \link[MASS]{qda} of the MASS package (Venables & Ripley, 2002; Ripley et al., 2018). The graph with one dimension in the Discriminant analysis was performed with the function \link[candisc]{plot.cancor} of the candisc package (Friendly, 2007; Friendly & Fox, 2017).
+The Correspondence analysis was performed with the \link[ca]{ca} function of the package ca (Greenacre & Pardo, 2006; Greenacre, 2007; Nenadic & Greenacre, 2007; Greenacre, 2013). The Principal Components Analysis was performed with the \link[stats]{prcomp} function of the stats package. The \link[usdm]{vif} function of the usdm package was used for the calculation of VIF (Naimi et al., 2014; Naimi, 2017). To perform the \emph{biplot} graph the \link[car]{scatterplot} function of the car package was used (Fox et al., 2018). The arrows are depicted with the function \link[IDPmisc]{Arrows} of the package IDPmisc (Locher & Ruckstuhl, 2014). The convex hull is estimated with the function \link[grDevices]{chull} of the package grDevices. KMO test was performed with the function \link[psych]{KMO} of the package psych (Revelle, 2018). Bartlett's test sphericity was performed with the function \link[REdaS]{bart_spher} of the package REdaS (Maier, 2015). The U Mann-Whitney test is performed with the \emph{wilcox.test} function of the base stats package. The comparison between clusters with the VARSEDIG algorithm is done with the VARSEDIM function of the VARSEDIG package (Guisande et al., 2016: Guisande, 2018). The Linear Discriminant Analysis was performed with the functions \link[candisc]{candisc} of the candisc package (Friendly, 2007; Friendly & Fox, 2017) and \link[MASS]{lda} of the MASS package (Venables & Ripley, 2002; Ripley et al., 2018). The Quadratic Discriminant Analysis was performed with the function \link[MASS]{qda} of the MASS package (Venables & Ripley, 2002; Ripley et al., 2018). The graph with one dimension in the Discriminant analysis was performed with the function \link[candisc]{plot.cancor} of the candisc package (Friendly, 2007; Friendly & Fox, 2017).
 
 \strong{EXAMPLE}
 
@@ -143,21 +143,25 @@ The example consisted of analysing the morphometric variability of several speci
 
 The analysis is performed by eliminating the variables that are not correlated, for which it is specified \emph{VIF=TRUE}. Therefore, the first result obtained is the VIF values of the variables. Those variables with a VIF lower than the threshold are no included in the Principal Components analysis.
 \tabular{c}{
-\figure{R1}{options: width=2.5in}
+\if{html}{\figure{R1.jpg}{options: width=2.5in}}
+\if{latex}{\figure{R1.jpg}{options: width=2.5in}}
 }
 The second statistic obtained is the KMO test, which tells us if the variables are adequate for the Principal Components. The value must be greater than 0.5. Therefore, all variables that do not have a value greater than 0.5, could be eliminated from the analysis. In the case that the value is exactly 0.5, it means that it is not possible to estimate the KMO.
 \tabular{c}{
-\figure{R2}{options: width=5.0in}
+\if{html}{\figure{R2.jpg}{options: width=5.0in}}
+\if{latex}{\figure{R2.jpg}{options: width=5.0in}}
 }
 The next statistic that appears is Bartlett's test of sphericity, which tests whether the correlation matrix is an identity matrix, which would indicate that the factor model is inappropriate. A value \emph{p} of the contrast smaller than the level of significance allows rejecting the hypothesis and concluding that there is correlation. Therefore, for the Principal Components analysis to be valid, the probability must be less than 0.05, as it is in this case.
 \tabular{c}{
-\figure{R3}{options: width=2.8in}
+\if{html}{\figure{R3.jpg}{options: width=2.8in}}
+\if{latex}{\figure{R3.jpg}{options: width=2.8in}}
 }
-Figure VIDTAXA.1 shows that the variability observed in the Principal Components analysis allows to is clearly differentiate among the genera.
+Figure VIDTAXA.1 shows that the variability observed in the Principal Components analysis allows to clearly differentiate among the genera.
 \tabular{c}{
 \strong{Figure VIDTAXA.1.} Principal Components analysis showing the \cr
 variability observed in the genera.\cr
-\figure{F2}{options: width=5.5in}
+\if{html}{\figure{F2.jpg}{options: width=5.5in}}
+\if{latex}{\figure{F2.jpg}{options: width=5.5in}}
 }
 The first axis accounts for 54\%, the second for 25.3\% and the third for 8.5\% of the variance observed. The first three axes explain 87.8\% of the variance. Since the default value of \emph{by=80} was selected, these three Principal Component axes are selected.
 
@@ -165,28 +169,33 @@ Figure VIDTAXA.2 shows the Dendrogram where 6 clusters are grouped, which are th
 \tabular{c}{
 \strong{Figure VIDTAXA.2.} Dendrogram with the scores of the axes selected\cr
 from the Principal Components analysis.\cr
-\figure{F3}{options: width=5.0in}
+\if{html}{\figure{F3.jpg}{options: width=5.0in}}
+\if{latex}{\figure{F3.jpg}{options: width=5.0in}}
 }
 Figure VIDTAXA.3 shows the differences between clusters for each of the variables. It is clear, for instance, the difference in M21 for cluster 1, in M6 for cluster 5, etc.
 \tabular{c}{
 \strong{Figure VIDTAXA.3.} Boxplot obtained for each of the variables\cr
 with the averaged values for each cluster.\cr
-\figure{F4}{options: width=5.2in}
+\if{html}{\figure{F4.jpg}{options: width=5.2in}}
+\if{latex}{\figure{F4.jpg}{options: width=5.2in}}
 }
 The Discriminant Analysis shows that it is possible to correctly discriminate 100\% of cases by cross-validation with the Linear method. The first discriminant axis explains most of the variability and discriminates well between the 6 clusters (Figure VIDTAXA.4). Many variables seem to be important for the discrimination since the arrows are not small. Figure VIDTAXA.5 shows the first two discriminant axes and shows the differences between the 6 clusters.
 \tabular{c}{
 \strong{Figure VIDTAXA.4.} Axis I of the Discriminant analysis\cr
-\figure{F5}{options: width=3.7in}
+\if{html}{\figure{F5.jpg}{options: width=3.7in}}
+\if{latex}{\figure{F5.jpg}{options: width=3.7in}}
 }
 \tabular{c}{
 \strong{Figure VIDTAXA.5.} Axes I and II of the Discriminant analysis\cr
-\figure{F6}{options: width=3.7in}
+\if{html}{\figure{F6.jpg}{options: width=3.7in}}
+\if{latex}{\figure{F6.jpg}{options: width=3.7in}}
 }
 The next test to determine if the clusters are statistically different was the comparison of the variables between the clusters. The results of the U Mann-Whitney test are shown in Figure VIDTAXA.6. For clusters to be different, there must be at least one statistically different variable when comparing each cluster with all the others. In the graph it is noted that in the comparison between all the clusters there is always a point, that is, there is always at least one variable that is different. In fact, between cluster 2 and cluster 4, the smaller number of statistically different variables was observed, a total of 14 variables. Therefore, from the comparison of the variables between clusters with the U Mann-Whitney test, it is concluded that the clusters are statistically different from each other.
 \tabular{c}{
 \strong{Figure VIDTAXA.6.} Plot where the bubbles show the number of variables,\cr
 that are statistically different (p <= 0.05) between clusters.\cr
-\figure{F7}{options: width=4.3in}
+\if{html}{\figure{F7.jpg}{options: width=4.3in}}
+\if{latex}{\figure{F7.jpg}{options: width=4.3in}}
 }
 Finally, in a pdf, the plots obtained from applying the VARSEDIG algorithm are saved, whose objective is to compare all the clusters with each other.
 
@@ -196,7 +205,8 @@ The individual that most resembles cluster 1 to cluster 2 (bottom right panel), 
 \tabular{c}{
 \strong{Figure VIDTAXA.8.} Plots obtained from the algorithm VARSEDIG.\cr
 It is shown the comparison between the cluster 1 and 2.\cr
-\figure{F8}{options: width=5.5in}
+\if{html}{\figure{F8.jpg}{options: width=5.5in}}
+\if{latex}{\figure{F8.jpg}{options: width=5.5in}}
 }
 Therefore, according to the Discriminant Analysis and the tests performed with the U Mann-Whitney test, the clusters are statistically different from each other, but the VARSEDIG algorithm showed that not all clusters are statistically different. However, it is very important to emphasize that the VARSEDIG algorithm considers two statistically different groups if the case that most resembles each group is statistically different using the Monte-Carlo test. The Monte-Carlo test needs a large number of cases in each group for detecting significant differences. That is, it is possible that, as it was shown in the comparison of cluster 1 with cluster 2, the cases of both groups that resemble each other are not within the point cloud of the other group, but due to the low number of cases in each group, it is not possible to determine that the difference is not due to chance.
 }
@@ -219,7 +229,7 @@ Locher, R. & Ruckstuhl, A. (2014) Utilities of Institute of Data Analyses and Pr
 
 Maier, M.J. (2015) Companion Package to the Book 'R: Einfuehrung durch angewandte Statistik. R package version 0.9.3. Available at: \url{https://CRAN.R-project.org/package=REdaS}.
 
-Naimi, B. (2013) Uncertainty analysis for species distribution models. R package version 3.5-0. Available at: \url{https://CRAN.R-project.org/package=usdm}.
+Naimi, B. (2017) Uncertainty analysis for species distribution models. R package version 1.1-18. Available at: \url{https://CRAN.R-project.org/package=usdm}.
 
 Naimi, B., Hamm, N.A.S., Groen, T.A., Skidmore, A.K., & Toxopeus, A.G. (2014) Where is positional uncertainty a problem for species distribution modelling? \emph{Ecography}, 37: 191-203.
 
