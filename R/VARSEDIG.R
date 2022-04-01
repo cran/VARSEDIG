@@ -7,7 +7,7 @@ XLABs=NULL, YLABs=NULL, XLIMs=NULL, YLIMs=NULL, PCHs=NULL, COLORs=NULL,
 LEGENDs=NULL, MTEXTs= NULL, TEXTs=NULL, LEGENDr=NULL, MTEXTr= NULL, TEXTr=NULL,
 arrows=TRUE, larrow=1, ARROWS=NULL, TEXTa=NULL, devnew=TRUE, model="Model.rda", 
 file1="Overlap.csv",  file2="Coefficients.csv", file3="Predictions.csv", 
-file4="Polar coordinates.csv", file="Output.txt", na="NA", dec=",", row.names=FALSE){
+file4="Polar coordinates.csv", file="Output.txt", na="NA", dec=",", row.names=FALSE, removefiles=FALSE){
 
 
 if(is.null(group) & (ellipse==TRUE | convex==TRUE)) {
@@ -129,6 +129,7 @@ write.csv(x=salidaF,file = file1, fileEncoding = "", row.names=row.names,na=na)
 else{
 write.csv2(x = salidaF,file = file1, fileEncoding = "", row.names=row.names,na=na)
 }
+
 
 
 #Density plot
@@ -876,6 +877,7 @@ else{
 write.csv2(x = datosF,file = file4, fileEncoding = "", row.names=row.names,na=na)
 }
 }
+
 else{
 X12<-0
 Y12<-0
@@ -892,6 +894,7 @@ var<-var[-length(var)]
 }
 }#TRUE VARSEDIG
 else{
+
 if(dec=="."){
 write.csv(x=datosF,file = file4, fileEncoding = "", row.names=row.names,na=na)
 }
@@ -1017,7 +1020,7 @@ eval(parse(text=scatterplotexe))
 }
 else{
 scatterplotexe<-paste("car::scatterplot(","Y~X| Group,", "data=datosF,", "regLine=FALSE,",
-"smooth=FALSE,", "spread=FALSE,", "span= 1," ,"grid=FALSE,", "xlab=xlab,","ylab=ylab,","xlim=XLIMs,","ylim=YLIMs,",
+"smooth=FALSE,",  "grid=FALSE,", "xlab=xlab,","ylab=ylab,","xlim=XLIMs,","ylim=YLIMs,",
 "boxplots=FALSE,", "by.groups=TRUE,", "ellipse=ellipse,", "col=color1,", "pch=pcht,","legend=list(coords=c(x=500000000,y=500000000))", ")")
 eval(parse(text=scatterplotexe))
 }
@@ -1335,6 +1338,7 @@ print(dist)
 
 
 if(method=="logistic regression"){
+
 if(devnew==TRUE){
 if(!is.null(file)){
 sink(file)
@@ -1381,6 +1385,29 @@ sink()
 }
 }
 
+if(removefiles==TRUE){
+
+if(file.exists(file1)==TRUE){
+file.remove(file1)
+}
+
+if(file.exists(file2)==TRUE){
+file.remove(file2)
+}
+
+if(file.exists(file3)==TRUE){
+file.remove(file3)
+}
+
+if(file.exists(file4)==TRUE){
+file.remove(file4)
+}
+
+if(file.exists(file)==TRUE){
+file.remove(file)
+}
+
+}
 
 
 }

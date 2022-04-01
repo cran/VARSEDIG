@@ -1,4 +1,4 @@
-citHeader("To cite VARSEDING in publications please use:")
+citHeader("To cite VARSEDIG in publications please use:")
 
 citEntry(entry = "Article",
   title        = "VARSEDIG: an algorithm for morphometric characters selection and statistical validation in morphological taxonomy",
@@ -8,11 +8,26 @@ citEntry(entry = "Article",
   volume       = "4162",
   number       = "3",
   pages        = "571--580",
-  url          = "https://www.ncbi.nlm.nih.gov/pubmed/27615992",
+  url          = "https://pubmed.ncbi.nlm.nih.gov/27615992",
 
   textVersion  =
   paste("Guisande C., Vari R.P., Heine J., García-Roselló E., González-Dacosta J., Pérez-Schofield B.J., González-Vilas L. & Pelayo-Villamil P. (2016).",
         "VARSEDIG: an algorithm for morphometric characters selection and statistical validation in morphological taxonomy.",
         "Zootaxa, 4162(3). 571-580.",
-        "URL https://www.ncbi.nlm.nih.gov/pubmed/27615992")
+        "URL https://pubmed.ncbi.nlm.nih.gov/27615992")
+)
+
+citHeader("To cite VIDTAXA in publications please use:")
+
+citEntry(entry = "Article",
+  title        = "VIDTAXA: an algorithm for the identification of statistically different groups based on variability obtained in factorial analyses",
+  author       = "C. Guisande and A.J. Rueda-Quecho and F.A. Rangle-Silva and J. Heine and E. García-Roselló and J. González-Dacosta and P. Pelayo-Villamil",
+  journal      = "Ecological Informatics",
+  year         = "2019",
+  volume       = "49",
+  pages        = "62--68",
+  textVersion  =
+  paste("Guisande C., Rueda-Quecho A., Rangel-Silva F.A., Heine J., García-Roselló E., González-Dacosta J. & Pelayo-Villamil P. (2019).",
+        "VIDTAXA: an algorithm for the identification of statistically different groups based on variability obtained in factorial analyses.",
+        "Ecological Informatics, 49. 62-68.")
 )

@@ -15,7 +15,7 @@ PCHs=NULL, COLORs=NULL, LEGENDs=NULL, MTEXTs=NULL, TEXTs=NULL, LEGENDr=NULL,
 MTEXTr= NULL, TEXTr=NULL, arrows=TRUE, larrow=1, ARROWS=NULL, TEXTa=NULL, devnew=TRUE,
 model="Model.rda", file1="Overlap.csv", file2="Coefficients.csv",
 file3="Predictions.csv", file4="Polar coordinates.csv", file="Output.txt",
-na="NA", dec=",", row.names=FALSE)
+na="NA", dec=",", row.names=FALSE, removefiles=FALSE)
 }
 \arguments{
   \item{data}{Data file.}
@@ -79,6 +79,7 @@ na="NA", dec=",", row.names=FALSE)
   \item{na}{CSV FILE. Text that is used in the cells without data.}
   \item{dec}{CSV FILE. It defines if the comma "," is used as decimal separator or the dot ".".}
   \item{row.names}{CSV FILE. Logical value that defines if identifiers are put in rows or a vector with a text for each of the rows.}
+  \item{removefiles}{If it is TRUE all CSV and TXT files are deleted.}
 }
 \value{It is depicted 4 plots: 1) a density plot with the overlap of the area under de curve between the two groups for the variable that better discriminates between both groups, 2) a scatter plot with the polar coordinates for both groups, 3) a bivariate plot that shows from all values of group 2 the value with higher probability to belong to group 1, and 4) a bivariate plot that shows from all values of group 1 the value with higher probability to belong to group 2. Moreover, 5 files are saved: 1) overlap of the area under the curve between both categories for all variables, 2) regression coefficients of the binomial logistic regression, 3) predictions of the binomial logistic regression, 4) polar coordinates for both categories of the variable \emph{group}, and 5) a TXT file with the results of the binomial logistic regression, the variables that better discriminate between the two groups and the Euclidean distance between groups considering the polar coordinates.}
 \details{
@@ -142,7 +143,7 @@ Figure shows the plots obtained with VARSEDIG (Guisande et al., 2016), in an exa
 
 The variables that better discriminate between both species are the M26 (interorbital width) and M11 (distance from the dorsal-fin origin to the dorsal limit of the pelvic-fin base). Between these two variables, a density plot is depicted for the quantitative variable with lower overlap between both groups and, thus, the highest discrimination capacity: in this example M26 (Figure 1A).
 \tabular{c}{
-\if{html}{\figure{F1.jpg}{options: width=5.5in}}
+\if{html}{\figure{F1.jpg}{options: width="50"}}
 \if{latex}{\figure{F1.jpg}{options: width=5.5in}}
 }
 Figure 1B shows the scatterplot of the polar coordinates obtained for both species using variables M26 and M11. The arrows show the vector of the variables with both of these variables higher in \emph{M. oligolepis}.
@@ -171,7 +172,7 @@ in Environmental Sciences. R package version 1.7-2. Available at: \url{https://C
 
 Ekstrom, C., Skovgaard, Ib M. & Martinussen, T.(2015) Datasets and functions from the (now non-existing). R package version 0.1-14. Available at: \url{https://CRAN.R-project.org/package=kulife}.
 
-Fox, J. & Weisberg, S. (2011) An R Companion to Applied Regression, Second Edition. Thousand Oaks CA: Sage. \url{ http://socserv.socsci.mcmaster.ca/jfox/Books/Companion}.
+Fox, J. & Weisberg, S. (2011) An R Companion to Applied Regression, Second Edition. Thousand Oaks CA: Sage.
 
 Fox, J., Weisberg, S., Adler, D., Bates, D., Baud-Bovy, G., Ellison, S., Firth, D., Friendly, M., Gorjanc, G., Graves, S., Heiberger, R., Laboissiere, R., Monette, G., Murdoch, D., Nilsson, H., Ogle, D., Ripley, B., Venables, W. & Zeileis, A. (2014) Companion to Applied Regression. R package version 2.0-20. Available at: \url{https://CRAN.R-project.org/package=car}.
 
@@ -189,6 +190,7 @@ Tabachnick, B.G. & Fidell, L.S. (1996) \emph{Using Multivariate Statistics}. NY,
 }
 \examples{
 
+
 data(characiformes)
 
 VARSEDIG(data = characiformes , variables = c("M2","M3","M4","M5","M6","M7","M8","M9","M10",
@@ -201,7 +203,6 @@ LEGENDs=c("x='topright'", "legend=unique(datosF[,'Group'])", "col = color1",
 "legend = dati", "col=col", "pch= c(16,16)", "bty='n'", "cex=1.2", "text.font=3"),
 XLIMs=c(-1.2,1.2), YLIMs=c(-1.3,1.3), BIVTEST12=c("br=br", "cex=1.1",
 "col=colbiv", "sub=sub", "Pcol=Pcol"), BIVTEST21=c("br=br", "cex=1.1",
-"col=colbiv", "sub=sub", "Pcol=Pcol"), colbiv="blue", ellipse=TRUE, convex=FALSE)
-
+"col=colbiv", "sub=sub", "Pcol=Pcol"), colbiv="blue", ellipse=TRUE, convex=FALSE, removefiles=TRUE)
 }
 \keyword{VARSEDIG}

@@ -1,5 +1,5 @@
 VIDTAXA<-function(data, var,  labels,  cat=NULL, analysis="PCA", por=80, k=NULL,  pthreshold=0.05, ellipse=FALSE, convex=FALSE, dim=c(1,2), size=c(1,5), showCluster=TRUE,
-VIF=FALSE, threshold=10,  method="overlap", minimum=TRUE, ResetPAR=TRUE, PAR=NULL, PCA=NULL, SCATTERPLOT=NULL, HCLUST=NULL,
+VIF=FALSE, VARSEDIG=TRUE, BUBBLE=TRUE,  threshold=10,  method="overlap", minimum=TRUE, ResetPAR=TRUE, PAR=NULL, PCA=NULL, SCATTERPLOT=NULL, HCLUST=NULL,
 CLUSTER=NULL, BOXPLOT=NULL, mfrowBOXPLOT=NULL, LabelCat=NULL, COLOR=NULL, COLORC=NULL, COLORB=NULL, PCH=NULL,
 XLIM=NULL, YLIM=NULL,  XLAB=NULL, YLAB=NULL, ylabBOXPLOT=NULL,
 LEGEND=NULL, MTEXT= NULL, TEXTvar=NULL, TEXTlabels=NULL, arrows=TRUE, larrow=0.7, colArrows="black", quadratic=FALSE,
@@ -194,7 +194,6 @@ Ymin<-min(datos3[,3], min(conY))
 Ymax<-max(datos3[,3],max(conY))
 
 
-
 colnames(datos3)<-c("Categ", "CanX", "CanY")
 Categ<-datos3[,1]
 dev.new()
@@ -213,7 +212,7 @@ eval(parse(text=scatterplotexe))
 }
 else{
 scatterplotexe<-paste("car::scatterplot(","CanY~CanX| Categ,", "data=datos3,", "regLine=FALSE,",
-"smooth=FALSE,", "spread=FALSE,", "span= 1," ,"grid=FALSE,", "xlim=c(Xmin,Xmax),", "ylim=c(Ymin,Ymax),",
+"smooth=FALSE,","grid=FALSE,", "xlim=c(Xmin,Xmax),", "ylim=c(Ymin,Ymax),",
 "boxplots=FALSE,", "by.groups=TRUE,", "ellipse=ellipse,", "col=color1,", "pch=pcht,",
 "xlab=paste('CAN',dimS[1],round(can2$pct[dimS[1]],digits=2),'%'),","ylab=paste('CAN',dimS[2],round(can2$pct[dimS[2]],digits=2),'%'),","legend=list(coords=c(x=500000000,y=500000000))", ")")
 eval(parse(text=scatterplotexe))
@@ -344,7 +343,7 @@ t <- table(predict(ad, datos[,var])$class, datos[,cat])
 acierto<-round(100-sum(predict(ad, datos[,var])$class!=datos[,cat])/ad$N*100, digits=2)
 
 
-#Validación cruzada
+#Validacion cruzada
 ad <- MASS::lda(datos[,var], grouping= datos[,cat], prior = repli/lenf, CV=TRUE)
 t<- table(ad$class,datos[,cat])
 #prop.table(t,2)*100
@@ -391,7 +390,7 @@ t <- table(predict(ad, datos[,var])$class, datos[,cat])
 acierto3<-round(100-sum(predict(ad, datos[,var])$class!=datos[,cat])/ad$N*100, digits=2)
 
 
-#Validación cruzada
+#Validacion cruzada
 ad <- MASS::qda(datos[,var], grouping= datos[,cat], prior = repli/lenf, CV=TRUE)
 t<- table(ad$class,datos[,cat])
 #prop.table(t,2)*100
@@ -436,7 +435,7 @@ print(Resultado)
 
 ####Function Bubble
 Bubble<-function(data, varY, varX, varSize=NULL, size=c(1,5), legSpos = "bottomright" , orientation = "horizontal",
-digitsS=0, k=NULL, XLAB=NULL, YLAB=NULL, XLIM=NULL, YLIM=NULL){
+digitsS=1, k=NULL, XLAB=NULL, YLAB=NULL, XLIM=NULL, YLIM=NULL){
 
 
 datos<-data
@@ -737,7 +736,7 @@ if(analysis=="CA"){
 conv<-NULL
 len<-length(var)
 for(yy in 1:len){
-if(class(data[,var[yy]])=="factor" | class(data[,var[yy]])=="character"){
+if(inherits(data[,var[yy]],"factor") | inherits(data[,var[yy]], "character")){
 data[,var[yy]]<-as.character(data[,var[yy]])
 cate<-unique(data[,var[yy]])
 lt<-length(unique(data[,var[yy]]))
@@ -840,7 +839,7 @@ pcaexe<-paste("prcomp(","x=datos1,",toString(x=PCA), ")")
 pca<-eval(parse(text=pcaexe))
 }
 else{
-pcaexe<-paste("prcomp(","x=datos1,","scale.=TRUE,","cor=TRUE", ")")
+pcaexe<-paste("prcomp(","x=datos1,","scale.=TRUE,", ")")
 pca<-eval(parse(text=pcaexe))
 }
 
@@ -851,18 +850,29 @@ corr<-ltm::rcor.test(datos1)
 
 
 ###File cat loadings
-zz<-data.frame(datos[, cat],datos[, labels],pca$x)
-colnames(zz)<-c(cat,labels, colnames(pca$x))
 
+d<-dim(pca$x)
 
+seq<-seq(1,d[1],1)
+
+rownames(pca$x)<-seq
 
 if(!is.null(cat)){
+zz<-data.frame(datos[, cat],datos[, labels],pca$x)
+colnames(zz)<-c(cat,labels, colnames(pca$x))
 catn<-length(unique(zz[,1]))
 zz<-zz[order(zz[,1]), ]
 dati<-as.character(unique(zz[,1]))
 }
+else{
+zz<-data.frame(datos[, labels],pca$x)
+colnames(zz)<-c(labels, colnames(pca$x))
+}
+
+
 
 }####End Principal Components analysis
+
 
 if(analysis=="CA"){
 
@@ -990,7 +1000,7 @@ eval(parse(text=scatterplotexe))
 }
 else{
 scatterplotexe<-paste("car::scatterplot(","x=zz[, dim[1]+num],", "y=zz[, dim[2]+num],", "group=zz[,cat],", "regLine=FALSE,",
-"smooth=FALSE,", "spread=FALSE,", "span= 1," ,"grid=FALSE,", "xlim=xlim,", "ylim=ylim,",
+"smooth=FALSE,","grid=FALSE,", "xlim=xlim,", "ylim=ylim,",
 "boxplots=FALSE,", "by.groups=by,", "ellipse=ellipse,", "col=color1,", "pch=pcht,",
 "xlab=xlab,","ylab=ylab,","legend=list(coords=c(x=500000000,y=500000000))", ")")
 eval(parse(text=scatterplotexe))
@@ -1005,7 +1015,7 @@ eval(parse(text=scatterplotexe))
 }
 else{
 scatterplotexe<-paste("car::scatterplot(","x=zz[, dim[1]+num],", "y=zz[, dim[2]+num],", "regLine=FALSE,",
-"smooth=FALSE,", "spread=FALSE,", "span= 1," ,"grid=FALSE,","xlim=xlim,", "ylim=ylim,",
+"smooth=FALSE,", "grid=FALSE,","xlim=xlim,", "ylim=ylim,",
 "boxplots=FALSE,", "by.groups=by,", "ellipse=ellipse,", "col=color1,", "pch=pcht,",
 "xlab=xlab,","ylab=ylab,","legend=list(coords=c(x=500000000,y=500000000))", ")")
 eval(parse(text=scatterplotexe))
@@ -1123,7 +1133,19 @@ while(fin<1){
 ###Cluster
 
 if(analysis=="PCA"){
+if(por==100){
+di<-dim(zz)
+if(is.null(cat)) corte<-(di[2]-2) else corte<-(di[2]-3)
+}
+else{
 corte<-min(which(sum$importance[3,] > por/100))-1
+}
+
+}
+else{
+if(por==100){
+di<-dim(zz)
+if(is.null(cat)) corte<-(di[2]-2) else corte<-(di[2]-3)
 }
 else{
 porce<-corre$sv^2*100/sum(corre$sv^2)
@@ -1132,6 +1154,7 @@ for(gj in 1:lenp){
 if(gj==1) porce[gj]<-porce[gj] else porce[gj]<-porce[gj]+porce[gj-1]
 }
 corte<-min(which(porce > por))-1
+}
 }
 
 
@@ -1195,6 +1218,7 @@ text(x=ors, y=max(hc$height)/2.9, label=paste("C", rr, sep=" "), font=2, col=COL
 }###End 2 if kmethod
 
 COLORC<-bc
+
 
 m<-data.frame(Nueva=as.numeric(rownames(zz)),Cluster) 
 m<-m[order(m[,1]),]
@@ -1348,7 +1372,7 @@ data1<-subset(temp,Cluster == gg)
 for(jj in (gg+1):k){
 ro<-ro+1
 data2<-subset(temp,Cluster == jj)
-W<-wilcox.test(data1[,var[dd]],data2[,var[dd]])
+W<-wilcox.test(data1[,var[dd]],data2[,var[dd]],  exact = FALSE)
 matriz[ro,1]<-var[dd]
 matriz[ro,2]<-gg
 matriz[ro,3]<-jj
@@ -1384,28 +1408,43 @@ write.csv2(x = matriz ,file = file12, fileEncoding = "", row.names=FALSE,na=na)
 
 matriz[is.na(matriz)]<-1
 
-
 if(kmethod=="manually"){
 fin<-1
 }
 else{
 Probability<-matriz[,4]
-matrizP<-subset(matriz,(Probability > pthreshold))
+matrizP<-subset(matriz,(Probability < pthreshold))
 dimP<-dim(matrizP)
 if(dimP[1]>0){
-dats<-aggregate(x=matrizP[,c("Variable")], by = list(matrizP[ , c("ClusterA")],matrizP[ , c("ClusterB")]), FUN=count)
-names(dats)<-c("ClusterA","ClusterB","Number")
-texy<-any(dats[,3]==len)
-if(texy==TRUE){
-k<-k-1
+datA<-aggregate(x=matrizP[,c("Variable")], by = list(matrizP[ , c("Variable")],matrizP[ , c("ClusterA")]), FUN=count)
+names(datA)<-c("Variable","Cluster","Number")
+datB<-aggregate(x=matrizP[,c("Variable")], by = list(matrizP[ , c("Variable")],matrizP[ , c("ClusterB")]), FUN=count)
+names(datB)<-c("Variable","Cluster","Number")
+dta<-rbind(datA, datB)
+dta<-aggregate(x=dta[,c("Number")], by = list(dta[ , c("Variable")],dta[ , c("Cluster")]), FUN=sum)
+names(dta)<-c("Variable","Cluster","Number")
+write.csv2(dta,"dta.csv")
+print(k)
+jj<-k
+for(ff in 1:jj){
+dat1<-subset(dta,(Cluster==ff))
+texy<-any(dat1[,3]==(k-1))
+if(texy==FALSE){
 kmethod<-"manually"
 }
-else{
-k=k+1
 }
+
 }
 else{
-k=k+1
+fin<-1
+k<-k-1
+}
+
+if(kmethod=="manually"){
+k<-k-1
+}
+else{
+k<-k+1
 }
 
 
@@ -1421,6 +1460,8 @@ dats<-aggregate(x=matriz[,c("Variable")], by = list(matriz[ , c("ClusterA")],mat
 names(dats)<-c("ClusterA","ClusterB","Number")
 
 
+if(BUBBLE==TRUE){
+
 dev.new()
 
 if(!is.null(PAR)){
@@ -1433,8 +1474,11 @@ par(font.lab=2,cex.lab=1.5)
 
 Bubble(data = dats , varY = "ClusterB" , varX = "ClusterA" , varSize = "Number" , size=size, XLAB="Cluster", YLAB="Cluster", k=k)
 
+}###End BUBBLE TRUE
 
 ####VARSEDIG
+
+if(VARSEDIG==TRUE){
 
 temp[,"Cluster"]<-paste("Cluster", temp[,"Cluster"])
 
@@ -1448,6 +1492,7 @@ else{
 print("Due to low number of data in some clusters, VARSEDIG algorithm was not run")
 }
 
+}###END VARSEDIG TRUE
 
 
 }
